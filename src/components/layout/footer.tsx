@@ -173,7 +173,7 @@ export function Footer({ showCta = true }: FooterProps) {
             All rights reserved.
           </p>
           <p className="font-[family-name:var(--font-body)] text-xs text-text/30">
-            E/38, G2, Hyderabad, Telangana 500059, India
+            E/38, G2, 17-1-380, Santosh Nagar Main Road, Central Excise Colony, Saidabad, Hyderabad, Telangana 500059, India
           </p>
         </div>
       </div>
