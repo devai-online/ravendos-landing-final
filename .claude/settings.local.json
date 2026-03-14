@@ -1,0 +1,57 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.tiwis.fr)",
+      "WebFetch(domain:intigrade.in)",
+      "WebFetch(domain:diagnosticwale.com)",
+      "Bash(chmod:*)",
+      "WebFetch(domain:www.unicorn.studio)",
+      "WebFetch(domain:github.com)",
+      "Bash(npx create-next-app@latest:*)",
+      "Bash(npm install:*)",
+      "Bash(npx next build:*)",
+      "Bash(npx next dev --turbopack)",
+      "Bash(node -e \"const fs=require\\(''fs''\\); const webp=Buffer.from\\(''UklGRiIAAABXRUJQVlA4IBYAAAAwAQCdASoBAAEADsD+JaQAA3AAAAAA'',''base64''\\); fs.writeFileSync\\(''d:/Work/DevAI/ravendos-landing-final/public/images/products/intigrade-screenshot.webp'', webp\\); fs.writeFileSync\\(''d:/Work/DevAI/ravendos-landing-final/public/images/products/diagnosticwale-screenshot.webp'', webp\\); console.log\\(''Created placeholder images''\\);\")",
+      "Bash(node -e:*)",
+      "Bash(timeout:*)",
+      "Bash(powershell:*)",
+      "Bash(dir:*)",
+      "WebFetch(domain:www.awwwards.com)",
+      "WebFetch(domain:tympanus.net)",
+      "WebFetch(domain:cdn.prod.website-files.com)",
+      "Bash(del \"d:\\\\Work\\\\DevAI\\\\ravendos-landing-final\\\\src\\\\components\\\\sections\\\\founders.tsx\")",
+      "Bash(ls:*)",
+      "Bash(echo:*)",
+      "Bash(certutil:*)",
+      "Bash(where:*)",
+      "Bash(del \"d:\\\\Work\\\\DevAI\\\\ravendos-landing-final\\\\public\\\\images\\\\logo-dark.png\")",
+      "Bash(move \"d:\\\\Work\\\\DevAI\\\\ravendos-landing-final\\\\public\\\\images\\\\logo-dark-trimmed.png\" \"d:\\\\Work\\\\DevAI\\\\ravendos-landing-final\\\\public\\\\images\\\\logo-dark.png\")"
+    ]
+  },
+  "hooks": {
+    "PreCompact": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/pre-compact.sh\"",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/post-compact.sh\"",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

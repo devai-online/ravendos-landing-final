@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-bg: #0A0A0A;
+  --color-text: #FFFFFF;
+  --color-accent: #FF7C48;
+  --color-accent-hover: #E56A3A;
+  --color-muted: #999999;
+  --color-white: #FFFFFF;
+
+  --font-hero: var(--font-syncopate);
+  --font-heading: var(--font-syne);
+  --font-body: var(--font-outfit);
+}
+
+/* Base styles */
+html {
+  background-color: var(--color-bg);
+}
+
+body {
+  background-color: transparent;
+  color: var(--color-text);
+  font-family: var(--font-body), system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom cursor — desktop only */
+@media (pointer: fine) {
+  *,
+  *::before,
+  *::after {
+    cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"><path fill="%23000" stroke="%23FFF" stroke-width="2" d="M5.5 3.21V20.8c0 .45.54.67.85.35l4.86-4.86a.5.5 0 0 1 .35-.15h6.87a.5.5 0 0 0 .35-.85L6.35 2.85a.5.5 0 0 0-.85.35Z"></path></svg>') 4 1, auto;
+  }
+}
+
+/* Marquee animation */
+@keyframes marquee-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* Split text line mask — used by GSAP SplitText */
+.split-line-mask {
+  overflow: hidden;
+}
+
+/* Smooth scroll anchor offset for fixed nav */
+html {
+  scroll-padding-top: 80px;
+}
+
+/* Rotating halo for submit button */
+@keyframes halo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Gradient text cutout — heading "holes" in capability cards.
+   backgroundImage is set dynamically via JS (live canvas capture). */
+.text-gradient-cutout {
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  /* Fallback if JS hasn't loaded yet */
+  background-color: #1a1a1a;
+}
+
+/* ── Capability gap art animations ── */
+@keyframes cap-art-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes cap-art-breathe {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes cap-art-dash {
+  to { stroke-dashoffset: -40; }
+}
+
+@keyframes cap-art-draw {
+  0% { stroke-dashoffset: 420; opacity: 0.6; }
+  50% { stroke-dashoffset: 0; opacity: 1; }
+  100% { stroke-dashoffset: -420; opacity: 0.6; }
+}
+
+.art-spin { animation: cap-art-spin 60s linear infinite; }
+.art-spin-reverse { animation: cap-art-spin 45s linear infinite reverse; }
+.art-breathe { animation: cap-art-breathe 3s ease-in-out infinite; }
+.art-dash {
+  stroke-dasharray: 8 12;
+  animation: cap-art-dash 2s linear infinite;
+}
+.art-draw {
+  stroke-dasharray: 420;
+  animation: cap-art-draw 6s ease-in-out infinite;
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
