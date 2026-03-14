@@ -23,17 +23,17 @@ export function Marquee() {
   return (
     <section
       id={SECTIONS.MARQUEE}
-      className="overflow-hidden border-y border-text/10 py-8 md:py-12"
+      className="overflow-hidden bg-white py-12 md:py-16 relative z-30"
     >
       <div
         className="flex w-max"
         style={{ animation: "marquee-scroll 50s linear infinite" }}
       >
-        <div className="flex font-[family-name:var(--font-heading)] text-[clamp(2rem,5vw,4.5rem)] font-extrabold uppercase leading-none">
+        <div className="flex font-[family-name:var(--font-heading)] text-[clamp(2rem,5vw,4.5rem)] font-extrabold uppercase leading-none text-[#0A0A0A]">
           <MarqueeContent />
         </div>
         {/* Duplicate for seamless loop */}
-        <div className="flex font-[family-name:var(--font-heading)] text-[clamp(2rem,5vw,4.5rem)] font-extrabold uppercase leading-none">
+        <div className="flex font-[family-name:var(--font-heading)] text-[clamp(2rem,5vw,4.5rem)] font-extrabold uppercase leading-none text-[#0A0A0A]">
           <MarqueeContent />
         </div>
       </div>

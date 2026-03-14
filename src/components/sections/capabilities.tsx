@@ -1,12 +1,28 @@
 "use client";
 
 import { useRef, useEffect, Fragment } from "react";
-import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap-setup";
+import { gsap, ScrollTrigger } from "@/lib/gsap-setup";
 import { SECTIONS, CAPABILITIES } from "@/lib/constants";
 import { useIsDesktop } from "@/hooks/use-media-query";
 import { SplitText } from "@/components/ui/split-text";
 
-/* ── Decorative SVG art (displayed between cards on dark bg) ── */
+/* ── Card sub-labels (small text above huge heading) ── */
+const CARD_LABELS = [
+  "INTELLIGENT SYSTEMS",
+  "CLOUD & AUTOMATION",
+  "DEFENSE & ARCHITECTURE",
+  "WEB & MOBILE",
+];
+
+/* ── Short display headings for cards (Tiwis style: punchy, fits at massive sizes) ── */
+const CARD_HEADINGS = [
+  "AI/ML",
+  "DevOps",
+  "Security",
+  "App Dev",
+];
+
+/* ── Decorative SVG art (displayed in gaps between cards on dark bg) ── */
 const SLIDE_ART: React.ReactNode[] = [
   // 0: Circle grid — slow rotation + staggered breathing
   <svg key="art-0" viewBox="0 0 400 400" fill="none" stroke="currentColor" strokeWidth="1" className="art-spin">
@@ -91,191 +107,82 @@ const SLIDE_ART: React.ReactNode[] = [
 
 export function Capabilities() {
   const sectionRef = useRef<HTMLElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const introRef = useRef<HTMLDivElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
   const isDesktop = useIsDesktop();
 
-  useGSAP(
-    () => {
-      if (!isDesktop || !sectionRef.current || !trackRef.current) return;
+  useEffect(() => {
+    if (!isDesktop || !sectionRef.current || !wrapperRef.current || !trackRef.current || !overlayRef.current) return;
 
-      const track = trackRef.current;
+    const ctx = gsap.context(() => {
+      const wrapper = wrapperRef.current!;
+      const track = trackRef.current!;
+      const intro = introRef.current;
+      const overlay = overlayRef.current!;
       const vw = window.innerWidth;
       const scrollDistance = track.scrollWidth - vw;
-      const totalDistance = window.innerHeight * 0.3 + scrollDistance;
-      const scrollStart = 0.08;
 
-      // ── Compute snap points (intro + each card center) ──
-      const cards = gsap.utils.toArray<HTMLElement>(".cap-card", track);
-      const snapPoints: number[] = [0, 0.06]; // start + intro visible
-      cards.forEach((card) => {
-        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-        const centerFraction = Math.max(0, Math.min(1, (cardCenter - vw / 2) / scrollDistance));
-        snapPoints.push(scrollStart + centerFraction * (1 - scrollStart));
-      });
-      snapPoints.push(1);
+      // Phase durations in scroll pixels
+      const scaleScroll = window.innerHeight * 1.2;
+      const overlayScroll = window.innerHeight * 0.8;
+      const totalDistance = scaleScroll + scrollDistance + overlayScroll;
+      const scaleFraction = scaleScroll / totalDistance;
+      const scrollFraction = scrollDistance / totalDistance;
+      const overlayFraction = overlayScroll / totalDistance;
 
-      // ── Intro content starts hidden ──
-      const introHeading = track.querySelector(".cap-intro-heading");
-      const introBody = track.querySelector(".cap-intro-body");
-      if (introHeading) gsap.set(introHeading, { opacity: 0, y: 40 });
-      if (introBody) gsap.set(introBody, { opacity: 0, y: 30 });
+      // Wrapper starts invisible (scale 0), anchored at bottom-right
+      gsap.set(wrapper, { scale: 0 });
+      // Overlay starts below viewport
+      gsap.set(overlay, { yPercent: 100 });
 
-      // ── Main timeline ──
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
           end: () => `+=${totalDistance}`,
           pin: true,
-          scrub: 1,
+          scrub: 0.8,
           anticipatePin: 1,
           invalidateOnRefresh: true,
-          snap: {
-            snapTo: snapPoints,
-            duration: { min: 0.3, max: 0.8 },
-            delay: 0.1,
-            ease: "power1.inOut",
-          },
         },
       });
 
-      // ── Phase 1: Intro reveals (0 → 0.06) ──
-      if (introHeading) {
-        tl.to(introHeading, { opacity: 1, y: 0, duration: 0.04, ease: "power2.out" }, 0);
+      // Phase 1: Scale wrapper from 0 → 1 (bottom-right origin)
+      tl.to(wrapper, {
+        scale: 1,
+        duration: scaleFraction,
+        ease: "none",
+      }, 0);
+
+      // Fade out intro text during the last 40% of scale-up
+      if (intro) {
+        tl.to(intro, {
+          opacity: 0,
+          duration: scaleFraction * 0.4,
+          ease: "power2.in",
+        }, scaleFraction * 0.6);
       }
-      if (introBody) {
-        tl.to(introBody, { opacity: 1, y: 0, duration: 0.04, ease: "power2.out" }, 0.02);
-      }
 
-      // ── Phase 2: Horizontal scroll (0.08 → 1.0) ──
-      tl.to(
-        track,
-        {
-          x: () => -scrollDistance,
-          ease: "none",
-          duration: 1 - scrollStart,
-        },
-        scrollStart
-      );
+      // Phase 2: Horizontal scroll (after scale completes)
+      tl.to(track, {
+        x: () => -scrollDistance,
+        ease: "none",
+        duration: scrollFraction,
+      }, scaleFraction);
 
-      // ── Phase 3: Per-card content reveals ──
-      cards.forEach((card) => {
-        const counter = card.querySelector(".cap-counter");
-        const heading = card.querySelector(".cap-heading");
-        const body = card.querySelector(".cap-body");
-
-        // Calculate when this card's center reaches viewport center
-        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-        const enterProgress = Math.max(0, (cardCenter - vw) / scrollDistance);
-        const revealTime = scrollStart + enterProgress * (1 - scrollStart);
-        const dur = 0.06;
-
-        if (counter) {
-          tl.fromTo(counter, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: dur * 0.6 }, revealTime);
-        }
-        if (heading) {
-          tl.fromTo(heading, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: dur }, revealTime + dur * 0.1);
-        }
-        if (body) {
-          tl.fromTo(body, { opacity: 0, y: 25 }, { opacity: 1, y: 0, duration: dur }, revealTime + dur * 0.3);
-        }
-      });
-
-      // ── Art reveals ──
-      const artEls = gsap.utils.toArray<HTMLElement>(".cap-gap-art", track);
-      artEls.forEach((art) => {
-        const artCenter = art.offsetLeft + art.offsetWidth / 2;
-        const enterProgress = Math.max(0, (artCenter - vw) / scrollDistance);
-        const revealTime = scrollStart + enterProgress * (1 - scrollStart);
-        tl.fromTo(art, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.08 }, revealTime);
-      });
+      // Phase 3: White overlay slides up from bottom (after h-scroll completes)
+      tl.to(overlay, {
+        yPercent: 0,
+        ease: "none",
+        duration: overlayFraction,
+      }, scaleFraction + scrollFraction);
 
       ScrollTrigger.sort();
-    },
-    { scope: sectionRef, dependencies: [isDesktop] }
-  );
+    }, sectionRef);
 
-  /* ── Live canvas capture: project WebGL gradient into heading text ── */
-  useEffect(() => {
-    if (!isDesktop) return;
-
-    let animId: number;
-    let cancelled = false;
-
-    // Give the OGL canvas time to initialize (dynamic import)
-    const initTimeout = setTimeout(() => {
-      if (cancelled) return;
-
-      const sourceCanvas = document.querySelector(
-        ".gradient-canvas"
-      ) as HTMLCanvasElement | null;
-      if (!sourceCanvas) return;
-
-      const headings = sectionRef.current?.querySelectorAll(
-        ".cap-heading"
-      ) as NodeListOf<HTMLElement> | undefined;
-      if (!headings?.length) return;
-
-      // Small offscreen canvas — low-res is fine for text background
-      const offscreen = document.createElement("canvas");
-      const OW = 320;
-      const OH = 180;
-      offscreen.width = OW;
-      offscreen.height = OH;
-      const ctx = offscreen.getContext("2d");
-      if (!ctx) return;
-
-      let lastCapture = 0;
-      let currentUrl = "";
-      let appliedUrl = "";
-      const CAPTURE_MS = 150; // ~6 fps texture update
-
-      function loop(ts: number) {
-        if (cancelled) return;
-        animId = requestAnimationFrame(loop);
-
-        // Capture texture at a lower frequency
-        if (ts - lastCapture > CAPTURE_MS) {
-          lastCapture = ts;
-          try {
-            ctx!.drawImage(sourceCanvas!, 0, 0, OW, OH);
-            currentUrl = offscreen.toDataURL("image/jpeg", 0.35);
-          } catch {
-            // WebGL canvas unavailable — skip
-            return;
-          }
-        }
-
-        if (!currentUrl) return;
-
-        const vw = window.innerWidth;
-        const vh = window.innerHeight;
-
-        headings!.forEach((el) => {
-          const rect = el.getBoundingClientRect();
-          // Skip off-screen headings
-          if (rect.right < 0 || rect.left > vw) return;
-
-          // Only swap the image src when a new capture is available
-          if (currentUrl !== appliedUrl) {
-            el.style.backgroundImage = `url(${currentUrl})`;
-            appliedUrl = currentUrl;
-          }
-
-          // Reposition every frame so the gradient tracks the viewport
-          el.style.backgroundSize = `${vw}px ${vh}px`;
-          el.style.backgroundPosition = `${-rect.left}px ${-rect.top}px`;
-        });
-      }
-
-      animId = requestAnimationFrame(loop);
-    }, 600);
-
-    return () => {
-      cancelled = true;
-      clearTimeout(initTimeout);
-      if (animId) cancelAnimationFrame(animId);
-    };
+    return () => ctx.revert();
   }, [isDesktop]);
 
   return (
@@ -313,68 +220,104 @@ export function Capabilities() {
         </div>
       </div>
 
-      {/* Desktop: pinned horizontal scroll with separate cards — hidden below lg */}
-      <div className="hidden lg:block h-svh w-full overflow-hidden">
-        <div ref={trackRef} className="flex h-full items-center">
-          {/* Intro: "What We Do" on dark bg (white text) — takes one viewport width */}
-          <div className="shrink-0 w-screen h-full flex items-center px-[10vw]">
-            <div>
-              <span className="font-[family-name:var(--font-heading)] text-sm tracking-[0.2em] text-text/40 uppercase block mb-8">
-                Our Capabilities
-              </span>
-              <h2
-                className="cap-intro-heading font-[family-name:var(--font-heading)] text-[clamp(3rem,5vw,6rem)] font-bold uppercase mb-6 leading-tight"
-              >
-                WHAT WE DO
-              </h2>
-              <p
-                className="cap-intro-body font-[family-name:var(--font-body)] text-lg md:text-xl text-text/50 max-w-lg"
-              >
-                We design, build, and ship intelligent platforms — end to end.
-              </p>
-            </div>
-            {/* Accent arrow */}
-            <div className="absolute bottom-[12%] right-[10vw]">
-              <svg className="h-6 w-6 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M7 17L17 7M17 7H7M17 7V17" />
-              </svg>
-            </div>
+      {/* Desktop: Tiwis Offers pattern — hidden below lg */}
+      <div className="hidden lg:block h-svh w-full relative">
+        {/* ── Static intro text — behind card wrapper, fades out during scale-up ── */}
+        <div ref={introRef} className="absolute inset-0 flex flex-col justify-center px-[10vw] z-0">
+          <span className="font-[family-name:var(--font-heading)] text-sm tracking-[0.2em] text-text/40 uppercase block mb-8">
+            Our Capabilities
+          </span>
+          <h2 className="font-[family-name:var(--font-display)] text-[clamp(2rem,3.5vw,3.5rem)] font-light text-text/70 max-w-[55vw] leading-snug tracking-[-0.01em]">
+            We design, build, and ship intelligent platforms — end to end.
+          </h2>
+        </div>
+
+        {/* ── White overlay — slides up at end of h-scroll (Tiwis Posture style) ── */}
+        <div ref={overlayRef} className="absolute inset-0 bg-white z-20 flex items-center px-[10vw]">
+          <div className="w-full max-w-7xl mx-auto">
+            {/* Label */}
+            <span className="font-[family-name:var(--font-heading)] text-xs tracking-[0.25em] text-black/40 uppercase block mb-4">
+              Our Work
+            </span>
+
+            {/* Structural line */}
+            <div className="h-px bg-black/20 mb-8 w-full" />
+
+            {/* Large heading — Tiwis Posture style */}
+            <h2 className="text-gradient-fade font-[family-name:var(--font-display)] text-[clamp(3rem,6vw,6.5rem)] font-medium uppercase leading-[1] tracking-[-0.03em] max-w-[70vw] mb-6">
+              Products &amp; platforms we&apos;ve built.
+            </h2>
+
+            {/* Body text with gradient */}
+            <p className="text-gradient-fade font-[family-name:var(--font-body)] text-[clamp(1rem,1.8vw,1.5rem)] max-w-2xl leading-relaxed">
+              From concept to scale — intelligent systems designed for real-world impact.
+            </p>
           </div>
+        </div>
 
-          {/* Capability cards + art gaps */}
-          {CAPABILITIES.map((cap, i) => (
-            <Fragment key={i}>
-              {/* Individual card */}
-              <div
-                className="cap-card shrink-0 w-[52vw] h-[82vh] bg-white rounded-2xl flex items-center px-[4vw] relative"
-                style={{ boxShadow: "0 20px 60px -15px rgba(0,0,0,0.3)" }}
-              >
-                <div className="max-w-[85%]">
-                  <span className="cap-counter font-[family-name:var(--font-body)] text-sm text-black/35 mb-5 block">
-                    0{i + 1} / 0{CAPABILITIES.length}
-                  </span>
-                  <h3 className="cap-heading font-[family-name:var(--font-heading)] text-[clamp(2rem,3.5vw,3.5rem)] font-bold uppercase mb-5 leading-tight text-gradient-cutout">
-                    {cap.heading}
-                  </h3>
-                  <p className="cap-body font-[family-name:var(--font-body)] text-base md:text-lg text-black/55 max-w-md">
-                    {cap.body}
-                  </p>
-                </div>
-              </div>
+        {/* ── Card wrapper — scales from bottom-right (transform-origin: 100% 100%) ── */}
+        <div
+          ref={wrapperRef}
+          className="absolute inset-0 overflow-hidden z-10"
+          style={{ transformOrigin: "100% 100%" }}
+        >
+          <div ref={trackRef} className="flex h-full">
+            {/* Transparent spacer — lets intro text show through at scale 1 */}
+            <div className="shrink-0 w-[50vw] h-full" />
 
-              {/* Art gap between cards (not after last card) */}
-              {i < CAPABILITIES.length - 1 && (
-                <div className="cap-gap-art shrink-0 w-[20vw] h-full flex items-center justify-center text-white/50">
-                  <div className="w-[14vw] h-[14vw]">
-                    {SLIDE_ART[i]}
+            {/* Capability cards + art gaps */}
+            {CAPABILITIES.map((cap, i) => (
+              <Fragment key={i}>
+                {/* Individual card — body at top, huge heading at bottom, overflow clipped */}
+                <div className="shrink-0 w-[50vw] h-full bg-white flex flex-col justify-between px-[4vw] py-[5vh] overflow-hidden">
+                  {/* Top: body text + accent arrow */}
+                  <div className="flex justify-between items-start gap-8">
+                    <p className="font-[family-name:var(--font-body)] text-base lg:text-lg text-black/55 max-w-[65%] leading-relaxed pt-2">
+                      {cap.body}
+                    </p>
+                    <svg
+                      className="h-5 w-5 text-accent shrink-0 mt-2"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path d="M7 17L17 7M17 7H7M17 7V17" />
+                    </svg>
+                  </div>
+
+                  {/* Bottom: sub-label + huge display heading */}
+                  <div>
+                    <span className="font-[family-name:var(--font-heading)] text-xs tracking-[0.25em] text-black/30 uppercase block mb-3">
+                      {CARD_LABELS[i]}
+                    </span>
+                    <h3 className="font-[family-name:var(--font-display)] text-[clamp(3rem,8vw,9rem)] font-medium leading-[0.95] tracking-[-0.04em] text-[#1a1a1a]">
+                      {CARD_HEADINGS[i]}
+                    </h3>
                   </div>
                 </div>
-              )}
-            </Fragment>
-          ))}
 
-          {/* Trailing space so last card can sit comfortably */}
-          <div className="shrink-0 w-[8vw]" />
+                {/* Art gap between cards (not after last card) */}
+                {i < CAPABILITIES.length - 1 && (
+                  <div className="shrink-0 w-[30vw] h-full flex flex-col items-center justify-center">
+                    <span className="font-[family-name:var(--font-heading)] text-xs tracking-[0.3em] text-accent/40 uppercase mb-8">
+                      0{i + 1} / 0{CAPABILITIES.length}
+                    </span>
+                    <div className="w-[14vw] h-[14vw] text-accent/50">
+                      {SLIDE_ART[i]}
+                    </div>
+                  </div>
+                )}
+              </Fragment>
+            ))}
+
+            {/* Trailing dark area — "Our Work" label visible after last card (like Tiwis "OFFER") */}
+            <div className="shrink-0 w-[55vw] h-full flex flex-col items-center justify-center">
+              <span className="font-[family-name:var(--font-heading)] text-sm tracking-[0.3em] text-white/60 uppercase">
+                Our Work
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </section>

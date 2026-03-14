@@ -3,7 +3,6 @@
 import { useRef, useEffect } from "react";
 import { gsap } from "@/lib/gsap-setup";
 import { ContactForm } from "@/components/ui/contact-form";
-import { Footer } from "@/components/layout/footer";
 
 export function ContactPageContent() {
   const contentRef = useRef<HTMLDivElement>(null);
@@ -67,8 +66,6 @@ export function ContactPageContent() {
           </div>
         </div>
       </div>
-
-      <Footer showCta={false} />
     </main>
   );
 }

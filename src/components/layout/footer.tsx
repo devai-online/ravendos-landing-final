@@ -25,12 +25,12 @@ export function Footer({ showCta = true }: FooterProps) {
       els.forEach((el) => {
         gsap.fromTo(
           el,
-          { opacity: 0, y: 30 },
+          { opacity: 0, y: 40 },
           {
             opacity: 1,
             y: 0,
             duration: 1,
-            ease: "power3.out",
+            ease: "power4.out",
             scrollTrigger: {
               trigger: el,
               start: "top 90%",
@@ -39,6 +39,25 @@ export function Footer({ showCta = true }: FooterProps) {
           }
         );
       });
+
+      // Logo slide-up (Tiwis-style: y 120% → 0%)
+      const logo = footerRef.current.querySelector(".footer-logo");
+      if (logo) {
+        gsap.fromTo(
+          logo,
+          { yPercent: 120 },
+          {
+            yPercent: 0,
+            duration: 1,
+            ease: "power4.out",
+            scrollTrigger: {
+              trigger: logo,
+              start: "top 95%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      }
     },
     { scope: footerRef }
   );
@@ -46,12 +65,12 @@ export function Footer({ showCta = true }: FooterProps) {
   return (
     <footer
       ref={footerRef}
-      className="relative flex min-h-svh flex-col justify-between px-6 md:px-12 lg:px-[10vw] pb-6"
+      className="relative flex min-h-svh flex-col pt-24 md:pt-28 px-6 md:px-12 lg:px-[10vw] pb-6"
     >
       {/* ── Top: CTA (right-aligned, Tiwis-style) ── */}
       {showCta ? (
-        <div className="footer-reveal flex justify-end pt-32 md:pt-40 lg:pt-48">
-          <div className="text-right max-w-lg">
+        <div className="footer-reveal flex flex-1 items-center justify-end">
+          <div className="text-right max-w-xl">
             <h2 className="font-[family-name:var(--font-heading)] text-[clamp(1.5rem,3.5vw,2.8rem)] font-bold leading-snug">
               An idea, a project,
               <br />
@@ -59,31 +78,29 @@ export function Footer({ showCta = true }: FooterProps) {
               <br />
               the status quo?
             </h2>
-            <div className="mt-8 flex justify-end">
+            <div className="mt-10 flex justify-end">
               <Link
                 href="/contact"
-                className="group inline-flex items-center gap-2"
+                className="group inline-flex items-center gap-4 rounded-full bg-text px-8 py-4 md:px-10 md:py-5 transition-all duration-300 hover:bg-text/90 hover:gap-6"
               >
-                <span className="rounded-full bg-text px-7 py-3.5 font-[family-name:var(--font-body)] text-sm tracking-wide text-bg transition-colors duration-300 group-hover:bg-text/85">
+                <span className="font-[family-name:var(--font-body)] text-sm md:text-base tracking-wide text-bg">
                   Let&apos;s talk !
                 </span>
-                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-text transition-colors duration-300 group-hover:bg-text/85">
-                  <svg
-                    className="h-4 w-4 text-bg transition-transform duration-300 group-hover:translate-x-1"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                  >
-                    <path d="M1 8h14M9 2l6 6-6 6" />
-                  </svg>
-                </span>
+                <svg
+                  className="h-5 w-5 text-bg transition-transform duration-300 group-hover:translate-x-1"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                >
+                  <path d="M1 8h14M9 2l6 6-6 6" />
+                </svg>
               </Link>
             </div>
           </div>
         </div>
       ) : (
-        <div className="pt-20" />
+        <div className="flex-1" />
       )}
 
       {/* ── Bottom: Logo + Links ── */}
@@ -99,14 +116,14 @@ export function Footer({ showCta = true }: FooterProps) {
 
         {/* Large logo + stacked links side by side */}
         <div className="footer-reveal flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between mb-8 md:mb-10">
-          {/* Left: massive company logo */}
-          <div className="flex-1">
+          {/* Left: company logo — Tiwis-style slide-up reveal */}
+          <div className="overflow-hidden lg:max-w-[60%]">
             <Image
               src="/images/logo-dark.png"
               alt="RavenDOS"
               width={730}
               height={120}
-              className="w-full max-w-[800px] h-auto"
+              className="footer-logo h-auto w-[80vw] md:w-[60vw] lg:w-[45vw]"
               priority
             />
           </div>

@@ -22,13 +22,13 @@ export function Hero() {
     if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
 
       if (nameRef.current) {
         tl.fromTo(
           nameRef.current,
-          { opacity: 0, y: 80 },
-          { opacity: 1, y: 0, duration: 1.4 },
+          { opacity: 0, y: 80, rotation: 2.5 },
+          { opacity: 1, y: 0, rotation: 0, duration: 1.5 },
           0.2
         );
       }
@@ -37,8 +37,8 @@ export function Hero() {
         const lines = taglineRef.current.querySelectorAll(".tagline-line");
         tl.fromTo(
           lines,
-          { opacity: 0, y: 50 },
-          { opacity: 1, y: 0, duration: 1.2, stagger: 0.12 },
+          { opacity: 0, y: 50, rotation: 2.5 },
+          { opacity: 1, y: 0, rotation: 0, duration: 1.2, stagger: 0.2 },
           0.5
         );
       }

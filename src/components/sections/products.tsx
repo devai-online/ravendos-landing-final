@@ -24,7 +24,7 @@ export function Products() {
             opacity: 1,
             y: 0,
             duration: 1,
-            ease: "power3.out",
+            ease: "power4.out",
             scrollTrigger: {
               trigger: el,
               start: "top 85%",

@@ -11,6 +11,7 @@
   --font-hero: var(--font-syncopate);
   --font-heading: var(--font-syne);
   --font-body: var(--font-outfit);
+  --font-display: var(--font-display);
 }
 
 /* Base styles */
@@ -64,14 +65,28 @@ html {
   }
 }
 
-/* Gradient text cutout — heading "holes" in capability cards.
-   backgroundImage is set dynamically via JS (live canvas capture). */
+/* Gradient text on capability card headings — static gradient */
 .text-gradient-cutout {
+  background: linear-gradient(135deg, #1a1a1a 0%, #333 40%, #FF7C48 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  /* Fallback if JS hasn't loaded yet */
-  background-color: #1a1a1a;
+}
+
+/* Tiwis Posture-style: heading fades vertically from dark to medium */
+.text-gradient-fade {
+  background: linear-gradient(180deg, #1a1a1a 0%, #1a1a1a 40%, #777 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Tiwis Posture-style: accent to dark gradient for sub-labels */
+.text-gradient-accent {
+  background: linear-gradient(135deg, #FF7C48 0%, #1a1a1a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 /* ── Capability gap art animations ── */

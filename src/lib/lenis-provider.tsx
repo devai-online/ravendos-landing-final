@@ -22,10 +22,7 @@ export function LenisProvider({ children }: { children: React.ReactNode }) {
 
     if (prefersReducedMotion) return;
 
-    const lenisInstance = new Lenis({
-      lerp: 0.1,
-      smoothWheel: true,
-    });
+    const lenisInstance = new Lenis();
 
     // Sync Lenis scroll position with GSAP ScrollTrigger
     lenisInstance.on("scroll", ScrollTrigger.update);

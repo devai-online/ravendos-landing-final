@@ -18,7 +18,10 @@ function LogoSet() {
           key={i}
           className="shrink-0 flex flex-col items-center justify-center gap-3 px-8 md:px-12 lg:px-14"
         >
-          <div className="bg-white/20 rounded-xl p-5 md:p-6 flex items-center justify-center">
+          <div
+            className="bg-white rounded-2xl p-5 md:p-6 flex items-center justify-center"
+            style={{ boxShadow: "0 10px 30px -10px rgba(0,0,0,0.2)" }}
+          >
             <Image
               src={logo.src}
               alt={logo.alt}
@@ -27,7 +30,7 @@ function LogoSet() {
               className="h-14 md:h-16 w-auto object-contain"
             />
           </div>
-          <span className="font-[family-name:var(--font-body)] text-xs text-text/60 tracking-wide">
+          <span className="font-[family-name:var(--font-body)] text-xs text-text/60 tracking-wide uppercase">
             {logo.name}
           </span>
         </div>
@@ -38,22 +41,32 @@ function LogoSet() {
 
 export function ClientLogos() {
   return (
-    <section className="overflow-hidden border-y border-text/10 py-10 md:py-14">
-      <div
-        className="flex w-max items-center"
-        style={{ animation: "marquee-scroll 35s linear infinite" }}
-      >
-        <div className="flex items-center">
-          <LogoSet />
-        </div>
-        <div className="flex items-center">
-          <LogoSet />
-        </div>
-        <div className="flex items-center">
-          <LogoSet />
-        </div>
-        <div className="flex items-center">
-          <LogoSet />
+    <section className="py-20 md:py-28 lg:py-32">
+      {/* Section label */}
+      <div className="px-6 md:px-12 lg:px-[10vw] mb-10 md:mb-14">
+        <span className="font-[family-name:var(--font-heading)] text-xs tracking-[0.25em] text-text/40 uppercase">
+          Our Clients
+        </span>
+      </div>
+
+      {/* Logo marquee */}
+      <div className="overflow-hidden">
+        <div
+          className="flex w-max items-center"
+          style={{ animation: "marquee-scroll 35s linear infinite" }}
+        >
+          <div className="flex items-center">
+            <LogoSet />
+          </div>
+          <div className="flex items-center">
+            <LogoSet />
+          </div>
+          <div className="flex items-center">
+            <LogoSet />
+          </div>
+          <div className="flex items-center">
+            <LogoSet />
+          </div>
         </div>
       </div>
     </section>

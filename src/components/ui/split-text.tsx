@@ -36,8 +36,6 @@ export function SplitText({
       // Wrap each line's content in an inner div for the reveal
       split.lines.forEach((line) => {
         const wrapper = document.createElement("div");
-        wrapper.style.transform = "translateY(140%)";
-        wrapper.style.opacity = "0";
         while (line.firstChild) {
           wrapper.appendChild(line.firstChild);
         }
@@ -48,12 +46,16 @@ export function SplitText({
         (line) => line.firstChild as HTMLElement
       );
 
+      // Initial state — Tiwis-style: y offset + slight rotation
+      gsap.set(innerWrappers, { yPercent: 120, rotation: 2.5, opacity: 0 });
+
       gsap.to(innerWrappers, {
-        y: "0%",
+        yPercent: 0,
+        rotation: 0,
         opacity: 1,
         duration: 1.2,
-        stagger: 0.05,
-        ease: "power3.out",
+        stagger: 0.15,
+        ease: "power4.out",
         scrollTrigger: {
           trigger: ref.current,
           start: triggerStart,

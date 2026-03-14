@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { syncopate, syne, outfit } from "@/lib/fonts";
+import { syncopate, syne, outfit, spaceGrotesk } from "@/lib/fonts";
 import { LenisProvider } from "@/lib/lenis-provider";
 import { GradientBackground } from "@/components/ui/gradient-background";
 import { Navbar } from "@/components/layout/navbar";
@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${syncopate.variable} ${syne.variable} ${outfit.variable}`}
+      className={`${syncopate.variable} ${syne.variable} ${outfit.variable} ${spaceGrotesk.variable}`}
     >
       <body className="antialiased">
         <GradientBackground />
