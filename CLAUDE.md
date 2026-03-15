@@ -4,16 +4,18 @@
 Landing website for RavenDOS — a product-driven technology studio that designs, develops, and launches its own intelligent platforms. Tagline: "Intelligence, Architected."
 
 ## Current Phase
-**SEO & Service Pages Complete.** Multi-page site: homepage (5 sections + footer), 5 service pages, services overview, and /contact page. Dark theme. Production-ready.
+**Production-ready.** Multi-page site: homepage (5 sections + footer), 5 service pages, services overview, and /contact page with Formspree integration. Dark theme.
 
 ## Tech Stack
-- **Framework:** Next.js 16 (App Router, TypeScript, Turbopack)
+- **Framework:** Next.js 16 (App Router, TypeScript)
+- **Dev server:** Webpack mode (`--webpack` flag — Turbopack crashes on Windows with Tailwind v4 PostCSS)
 - **Styling:** Tailwind CSS v4
 - **Animations:** GSAP 3.x (ScrollTrigger, SplitText) + Lenis smooth scroll + OGL (WebGL gradient bg)
 - **Fonts:** Syncopate (700), Syne (700, 800), Outfit (400) via `next/font/google`
-- **Form:** React Hook Form + placeholder API route
+- **Form:** Formspree (`@formspree/react`, form ID `xwvrnzry`)
 - **SEO:** JSON-LD schemas (ProfessionalService, Service, FAQPage, BreadcrumbList), llms.txt, sitemap
 - **Analytics:** Google Analytics (G-DY1KD00RXD)
+- **Security:** CSP headers in next.config.ts (GA + Formspree whitelisted in connect-src)
 - **Gradient text cutout:** OGL canvas captured at ~6fps → dataURL → CSS `background-clip: text` on capability card headings
 
 ## Key References
@@ -28,18 +30,17 @@ src/
 │   ├── page.tsx                # Homepage: Hero → Capabilities → Testimonials → Marquee → Philosophy → Footer
 │   ├── globals.css             # Tailwind @theme, custom cursor, keyframes, reduced-motion, .text-gradient-cutout
 │   ├── sitemap.ts              # Dynamic sitemap (8 entries)
-│   ├── robots.ts               # Robots with /api/ disallow
+│   ├── robots.ts               # Robots (allow all)
 │   ├── contact/
 │   │   ├── page.tsx            # Contact page (server component, metadata, breadcrumbs)
 │   │   └── contact-content.tsx # Contact page client content (form + animations)
-│   ├── services/
-│   │   ├── page.tsx            # Services overview page
-│   │   ├── ai-ml/page.tsx
-│   │   ├── devops/page.tsx
-│   │   ├── app-development/page.tsx
-│   │   ├── web-design/page.tsx
-│   │   └── network-security/page.tsx
-│   └── api/contact/route.ts    # Placeholder POST handler
+│   └── services/
+│       ├── page.tsx            # Services overview page
+│       ├── ai-ml/page.tsx
+│       ├── devops/page.tsx
+│       ├── app-development/page.tsx
+│       ├── web-design/page.tsx
+│       └── network-security/page.tsx
 ├── components/
 │   ├── layout/
 │   │   ├── navbar.tsx          # Logo + centered links (About, Products, Services, Contact) + contact pill
@@ -58,7 +59,7 @@ src/
 │   │   ├── button.tsx          # Tiwis-style text+arrow with vertical swap
 │   │   ├── split-text.tsx      # GSAP SplitText reveal wrapper
 │   │   ├── clip-reveal.tsx     # Clip-path image reveal
-│   │   └── contact-form.tsx    # Underline inputs + circular halo submit
+│   │   └── contact-form.tsx    # Formspree form (useForm + ValidationError) + underline inputs + circular halo submit
 │   ├── canvas/
 │   │   ├── animated-sphere.tsx
 │   │   └── animated-tetrahedron.tsx  # Accepts color prop: "white" (default) | "accent" (#FF7C48)
@@ -86,7 +87,7 @@ public/
 | Route | Type | Description |
 |-------|------|-------------|
 | `/` | Static | Homepage: Hero → Capabilities → Testimonials → Marquee → Philosophy → Footer |
-| `/contact` | Static | Contact form + footer (no CTA) |
+| `/contact` | Static | Formspree contact form + footer (no CTA) |
 | `/services` | Static | Services overview listing all 5 services |
 | `/services/ai-ml` | Static | AI & ML service page |
 | `/services/devops` | Static | DevOps & Cloud Infrastructure service page |
@@ -94,7 +95,7 @@ public/
 | `/services/web-design` | Static | Web Design & Development service page |
 | `/services/network-security` | Static | Network & Cyber Security service page |
 | `/sitemap.xml` | Dynamic | 8 entries |
-| `/robots.txt` | Dynamic | Disallows /api/ |
+| `/robots.txt` | Dynamic | Allow all |
 
 ## Nav Link Order
 About, Products, Services, Contact (navbar center + footer + mobile menu)
@@ -113,16 +114,30 @@ About, Products, Services, Contact (navbar center + footer + mobile menu)
 - **Philosophy:** Manifesto text + parallax ASCII tetrahedron.
 - **Service pages:** 5 individual pages with hero, offerings grid (2-col with borders), why us grid (2-col with borders), FAQ accordion, CTA, other services links. GSAP scroll-reveal. JSON-LD schemas (Service, FAQPage, BreadcrumbList).
 - **Services overview:** Hub page listing all 5 services with hover links.
-- **Contact page:** "SAY HELLO" heading, form, email alternative, breadcrumbs, footer (no CTA). GSAP entry animations.
+- **Contact page:** Form (Formspree), email alternative, breadcrumbs, footer (no CTA). GSAP entry animations.
+- **Formspree integration:** `@formspree/react` useForm hook, form ID `xwvrnzry`. ValidationError on name, email, message. Success state shows "Message sent."
 - **SEO:** ProfessionalService schema in layout, per-page metadata with buildPageMetadata, sitemap, robots, llms.txt, keywords.
 - **Google Analytics:** G-DY1KD00RXD active.
+- **CSP headers:** Content-Security-Policy in next.config.ts with GA and Formspree whitelisted in connect-src.
 - **Hash navigation fix:** Lenis-aware hash scroll on cross-page navigation (lenis-provider.tsx watches pathname changes).
 - **Breadcrumbs:** Semantic nav on service and contact pages.
+- **Dead code cleanup:** Removed 12 unused files, dead constants, unused refs.
 - GSAP + Lenis, animation primitives, marquee, custom cursor, reduced motion
 - ASCII canvas components with IntersectionObserver
 - Production build passing (all 15 routes)
 
 ## Known Issues & Lessons Learned
+
+### Turbopack Crash on Windows
+- Turbopack's PostCSS/Tailwind v4 pipeline tries to read `nul` (Windows reserved device name) → FATAL panic.
+- **Fix:** Use `--webpack` flag in dev script. Production build already uses Webpack.
+- Dev script: `cross-env NODE_OPTIONS=--max-old-space-size=8192 next dev --webpack`
+- Next.js 16 flag: `--webpack` (NOT `--no-turbopack`).
+
+### CSP Blocks External Fetch Silently
+- Content-Security-Policy `connect-src` in next.config.ts must whitelist all external API domains.
+- **Symptom:** fetch fails with generic "Network error" / TypeError, no CSP error in console on some browsers.
+- **Fix:** Add domain to `connect-src` directive (e.g., `https://formspree.io`).
 
 ### Hydration Errors (React 19 / Next.js 16)
 - `useGSAP` (uses useLayoutEffect) causes "insertBefore" hydration errors. **Fix:** use `useEffect` + `gsap.context()` in Hero.
@@ -153,7 +168,7 @@ About, Products, Services, Contact (navbar center + footer + mobile menu)
 ### Layout
 - Homepage: Hero → Capabilities (h-scroll) → Testimonials → Marquee → Philosophy → Footer
 - Service pages: Hero → Offerings → Why Us → FAQ → CTA → Other Services → Footer
-- Contact page: /contact — form page with breadcrumbs + footer (no CTA)
+- Contact page: /contact — Formspree form page with breadcrumbs + footer (no CTA)
 - Nav: logo left, centered links (About, Products, Services, Contact), contact pill right
 - Footer: Tiwis-inspired — CTA heading, large logo, nav links, email, phone, address, copyright
 

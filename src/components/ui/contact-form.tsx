@@ -75,7 +75,7 @@ function UnderlineTextarea({
 }
 
 export function ContactForm() {
-  const [state, handleSubmit] = useForm("xeoklqkv");
+  const [state, handleSubmit] = useForm("xwvrnzry");
 
   if (state.succeeded) {
     return (
@@ -98,8 +98,8 @@ export function ContactForm() {
           <div>
             <UnderlineInput label="Name" name="name" required />
             <ValidationError
-              prefix="Name"
               field="name"
+              prefix="Name"
               errors={state.errors}
               className="mt-1 block font-[family-name:var(--font-body)] text-xs text-accent"
             />
@@ -107,8 +107,8 @@ export function ContactForm() {
           <div>
             <UnderlineInput label="Email" type="email" name="email" required />
             <ValidationError
-              prefix="Email"
               field="email"
+              prefix="Email"
               errors={state.errors}
               className="mt-1 block font-[family-name:var(--font-body)] text-xs text-accent"
             />
@@ -116,12 +116,12 @@ export function ContactForm() {
           <UnderlineInput label="Company / Organization" name="company" />
         </div>
 
-        {/* Right column: Message (spans full height on desktop) */}
+        {/* Right column: Message */}
         <div className="mt-6 lg:mt-0">
           <UnderlineTextarea label="Message" name="message" tall required />
           <ValidationError
-            prefix="Message"
             field="message"
+            prefix="Message"
             errors={state.errors}
             className="mt-1 block font-[family-name:var(--font-body)] text-xs text-accent"
           />
@@ -177,11 +177,13 @@ export function ContactForm() {
           Send
         </span>
 
-        {state.submitting && (
-          <span className="font-[family-name:var(--font-body)] text-sm text-text/50">
-            Sending...
-          </span>
-        )}
+        <div aria-live="polite" aria-atomic="true">
+          {state.submitting && (
+            <span className="font-[family-name:var(--font-body)] text-sm text-text/50">
+              Sending...
+            </span>
+          )}
+        </div>
       </div>
     </form>
   );

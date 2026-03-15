@@ -33,7 +33,9 @@
       "Bash(del \"d:\\\\Work\\\\DevAI\\\\ravendos-landing-final\\\\src\\\\components\\\\sections\\\\clients.tsx\")",
       "Bash(del \"d:\\\\Work\\\\DevAI\\\\ravendos-landing-final\\\\src\\\\components\\\\sections\\\\contact.tsx\")",
       "Bash(del \"d:\\\\Work\\\\DevAI\\\\ravendos-landing-final\\\\src\\\\components\\\\sections\\\\client-logos.tsx\")",
-      "Bash(npm uninstall:*)"
+      "Bash(npm uninstall:*)",
+      "Bash(curl:*)",
+      "Bash(npx next dev:*)"
     ]
   },
   "hooks": {

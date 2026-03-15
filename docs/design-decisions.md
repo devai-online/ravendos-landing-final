@@ -1,6 +1,6 @@
 # RavenDOS Landing — Design Decisions Log
 
-## Status: SEO & Service Pages Complete
+## Status: Production-Ready
 
 ---
 
@@ -44,7 +44,7 @@
 
 ### ASCII art elements:
 - **AnimatedSphere** — Hero section, white, rotates continuously
-- **AnimatedTetrahedron** — Philosophy section (white), Work Transition (accent #FF7C48, 30% opacity)
+- **AnimatedTetrahedron** — Philosophy section (white)
 - `color` prop: `"white"` (default) | `"accent"` (#FF7C48)
 - White characters on transparent canvas
 
@@ -103,7 +103,7 @@
 
 ### Other pages:
 - **Services overview** (`/services`): Hub listing all 5 services
-- **Contact** (`/contact`): "SAY HELLO" heading, form, email, breadcrumbs, footer (no CTA)
+- **Contact** (`/contact`): Formspree form, email, breadcrumbs, footer (no CTA)
 
 ### Navigation:
 - **Navbar:** Logo left, centered links (About, Products, Services, Contact), contact pill right
@@ -132,3 +132,40 @@
 - Mobile: ≤767px
 - **Mobile adaptations:** h-scroll disabled, ASCII scaled down, cursor disabled, all GSAP animations kept
 - **Navigation:** Hamburger → full-screen overlay (Tiwis-style)
+
+---
+
+## 9. Contact Form
+**Status: LOCKED**
+
+- **Provider:** Formspree (`@formspree/react`)
+- **Form ID:** `xwvrnzry`
+- **Fields:** Name (required), Email (required), Company (optional), Message (required)
+- **UI:** Underline inputs with animated focus border, circular submit button with rotating halo ring
+- **Validation:** `ValidationError` components on name, email, message fields
+- **Success:** Shows "Message sent. We'll be in touch within 24 hours."
+- **CSP:** `https://formspree.io` whitelisted in `connect-src` directive in `next.config.ts`
+
+---
+
+## 10. Security Headers
+**Status: LOCKED**
+
+Content-Security-Policy in `next.config.ts`:
+- `default-src 'self'`
+- `script-src`: self + Google Analytics/Tag Manager
+- `connect-src`: self + Google Analytics + Formspree
+- `frame-src: 'none'`
+- X-Frame-Options: DENY
+- X-Content-Type-Options: nosniff
+- Referrer-Policy: strict-origin-when-cross-origin
+- Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+---
+
+## 11. Development Environment
+**Status: LOCKED**
+
+- **Dev server:** Webpack mode (`next dev --webpack`). Turbopack crashes on Windows with Tailwind v4 PostCSS (tries to read `nul` device).
+- **Production build:** Uses Webpack by default, no issues.
+- **Node memory:** 8192 MB via `cross-env NODE_OPTIONS=--max-old-space-size=8192`
