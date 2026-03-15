@@ -1,27 +1,19 @@
 "use client";
 
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-
-interface FormData {
-  name: string;
-  email: string;
-  company: string;
-  message: string;
-}
+import { useForm, ValidationError } from "@formspree/react";
 
 function UnderlineInput({
   label,
   type = "text",
-  error,
-  ...props
+  name,
+  required,
 }: {
   label: string;
   type?: string;
-  error?: string;
-} & React.InputHTMLAttributes<HTMLInputElement>) {
-  const inputId = `field-${props.name}`;
-  const errorId = `${inputId}-error`;
+  name: string;
+  required?: boolean;
+}) {
+  const inputId = `field-${name}`;
 
   return (
     <div>
@@ -35,38 +27,28 @@ function UnderlineInput({
         <input
           id={inputId}
           type={type}
-          aria-invalid={error ? true : undefined}
-          aria-describedby={error ? errorId : undefined}
+          name={name}
+          required={required}
           className="peer w-full border-b border-text/20 bg-transparent py-3 font-[family-name:var(--font-body)] text-base text-text focus:outline-none"
-          {...props}
         />
         <div className="absolute bottom-0 left-0 h-[1.5px] w-full origin-left scale-x-0 bg-text transition-transform duration-300 ease-out peer-focus:scale-x-100" />
       </div>
-      {error && (
-        <span
-          id={errorId}
-          role="alert"
-          className="mt-1 block font-[family-name:var(--font-body)] text-xs text-accent"
-        >
-          {error}
-        </span>
-      )}
     </div>
   );
 }
 
 function UnderlineTextarea({
   label,
-  error,
+  name,
+  required,
   tall = false,
-  ...props
 }: {
   label: string;
-  error?: string;
+  name: string;
+  required?: boolean;
   tall?: boolean;
-} & React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
-  const inputId = `field-${props.name}`;
-  const errorId = `${inputId}-error`;
+}) {
+  const inputId = `field-${name}`;
 
   return (
     <div className={tall ? "flex flex-col lg:h-full" : ""}>
@@ -79,93 +61,69 @@ function UnderlineTextarea({
       <div className={`relative ${tall ? "flex-1" : ""}`}>
         <textarea
           id={inputId}
+          name={name}
+          required={required}
           rows={tall ? undefined : 4}
-          aria-invalid={error ? true : undefined}
-          aria-describedby={error ? errorId : undefined}
           className={`peer w-full resize-none border-b border-text/20 bg-transparent py-3 font-[family-name:var(--font-body)] text-base text-text focus:outline-none ${
             tall ? "h-full min-h-[100px]" : ""
           }`}
-          {...props}
         />
         <div className="absolute bottom-0 left-0 h-[1.5px] w-full origin-left scale-x-0 bg-text transition-transform duration-300 ease-out peer-focus:scale-x-100" />
       </div>
-      {error && (
-        <span
-          id={errorId}
-          role="alert"
-          className="mt-1 block font-[family-name:var(--font-body)] text-xs text-accent"
-        >
-          {error}
-        </span>
-      )}
     </div>
   );
 }
 
 export function ContactForm() {
-  const [status, setStatus] = useState<
-    "idle" | "sending" | "success" | "error"
-  >("idle");
+  const [state, handleSubmit] = useForm("xeoklqkv");
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<FormData>();
-
-  const onSubmit = async (data: FormData) => {
-    setStatus("sending");
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      if (!res.ok) throw new Error("Failed to send");
-      setStatus("success");
-      reset();
-    } catch {
-      setStatus("error");
-    }
-  };
+  if (state.succeeded) {
+    return (
+      <div className="w-full py-12">
+        <p className="font-[family-name:var(--font-heading)] text-2xl md:text-3xl font-bold uppercase mb-4">
+          Message sent.
+        </p>
+        <p className="font-[family-name:var(--font-body)] text-base text-text/60">
+          We&apos;ll be in touch within 24 hours.
+        </p>
+      </div>
+    );
+  }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+    <form onSubmit={handleSubmit} className="w-full">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 xl:gap-x-16">
         {/* Left column: Name, Email, Company */}
         <div className="space-y-6">
-          <UnderlineInput
-            label="Name"
-            {...register("name", { required: "Name is required" })}
-            error={errors.name?.message}
-          />
-          <UnderlineInput
-            label="Email"
-            type="email"
-            {...register("email", {
-              required: "Email is required",
-              pattern: {
-                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                message: "Invalid email address",
-              },
-            })}
-            error={errors.email?.message}
-          />
-          <UnderlineInput
-            label="Company / Organization"
-            {...register("company")}
-            error={errors.company?.message}
-          />
+          <div>
+            <UnderlineInput label="Name" name="name" required />
+            <ValidationError
+              prefix="Name"
+              field="name"
+              errors={state.errors}
+              className="mt-1 block font-[family-name:var(--font-body)] text-xs text-accent"
+            />
+          </div>
+          <div>
+            <UnderlineInput label="Email" type="email" name="email" required />
+            <ValidationError
+              prefix="Email"
+              field="email"
+              errors={state.errors}
+              className="mt-1 block font-[family-name:var(--font-body)] text-xs text-accent"
+            />
+          </div>
+          <UnderlineInput label="Company / Organization" name="company" />
         </div>
 
         {/* Right column: Message (spans full height on desktop) */}
         <div className="mt-6 lg:mt-0">
-          <UnderlineTextarea
-            label="Message"
-            tall
-            {...register("message", { required: "Message is required" })}
-            error={errors.message?.message}
+          <UnderlineTextarea label="Message" name="message" tall required />
+          <ValidationError
+            prefix="Message"
+            field="message"
+            errors={state.errors}
+            className="mt-1 block font-[family-name:var(--font-body)] text-xs text-accent"
           />
         </div>
       </div>
@@ -175,7 +133,7 @@ export function ContactForm() {
         {/* Circular submit with rotating halo */}
         <button
           type="submit"
-          disabled={status === "sending"}
+          disabled={state.submitting}
           aria-label="Submit contact form"
           className="group relative flex h-14 w-14 shrink-0 items-center justify-center"
         >
@@ -219,13 +177,11 @@ export function ContactForm() {
           Send
         </span>
 
-        <div aria-live="polite" aria-atomic="true">
+        {state.submitting && (
           <span className="font-[family-name:var(--font-body)] text-sm text-text/50">
-            {status === "sending" && "Sending..."}
-            {status === "success" && "Message sent. We\u2019ll be in touch."}
-            {status === "error" && "Something went wrong. Please try again."}
+            Sending...
           </span>
-        </div>
+        )}
       </div>
     </form>
   );
