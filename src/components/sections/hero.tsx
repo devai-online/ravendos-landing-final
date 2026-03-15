@@ -134,7 +134,7 @@ export function Hero() {
 
       {/* RAVENDOS — massive, bottom-left */}
       <div ref={nameRef} className="relative z-10 pb-[5vh] md:pb-[6vh] px-6 md:px-12">
-        <h1 className="font-[family-name:var(--font-hero)] text-[clamp(3rem,11.5vw,14rem)] font-bold leading-[0.9] tracking-tight">
+        <h1 className="font-[family-name:var(--font-hero)] text-[clamp(2rem,11.5vw,14rem)] font-bold leading-[0.9] tracking-tight">
           RAVEN<span className="text-accent">DOS</span>
         </h1>
       </div>
