@@ -11,7 +11,7 @@ const AnimatedTetrahedron = dynamic(
     import("@/components/canvas/animated-tetrahedron").then(
       (mod) => mod.AnimatedTetrahedron
     ),
-  { ssr: false }
+  { ssr: false, loading: () => <div className="w-full h-full" /> }
 );
 
 export function Philosophy() {

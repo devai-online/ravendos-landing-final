@@ -1,0 +1,128 @@
+# RavenDOS — Intelligence, Architected.
+
+> RavenDOS is a product-driven technology studio headquartered in Hyderabad, Telangana, India. We design, build, and ship intelligent platforms — end to end. Our team specializes in AI/ML development, DevOps infrastructure, mobile and web application development, website design, and network security.
+
+## Company Overview
+
+RavenDOS Business Ventures LLP builds technology that matters. We are not an outsourcing shop — we are a product-driven studio that designs, develops, and launches our own intelligent platforms, and applies the same engineering excellence to client projects. Based in Hyderabad, we serve businesses across Telangana and India.
+
+## Services
+
+### AI & Machine Learning Development
+We design, train, and deploy intelligent systems that solve real business problems. Our AI/ML services include:
+- Custom ML model development and training
+- Natural Language Processing (NLP) solutions
+- Computer Vision and image recognition systems
+- Predictive analytics and recommendation engines
+- MLOps pipelines and model monitoring
+- AI-powered automation and workflow optimization
+
+Our AI expertise is proven through products like IntiGrade, an AI-powered exam evaluation platform used in real-world education.
+
+Learn more: https://ravendos.com/services/ai-ml
+
+### DevOps & Cloud Infrastructure
+We architect resilient cloud infrastructure and streamlined CI/CD pipelines. Our DevOps services include:
+- CI/CD pipeline design and implementation
+- Cloud architecture on AWS, Azure, and GCP
+- Kubernetes and container orchestration
+- Infrastructure as Code (Terraform, Pulumi)
+- Monitoring, logging, and observability (Grafana, Prometheus)
+- Cost optimization and cloud migration
+
+Learn more: https://ravendos.com/services/devops
+
+### App Development
+We build performant, scalable applications from concept to launch. Our app development services include:
+- Cross-platform mobile apps (React Native, Flutter)
+- Web applications (Next.js, React, Node.js)
+- Backend API development and microservices
+- Real-time features and WebSocket integrations
+- Database design and optimization
+- App Store and Play Store deployment
+
+Learn more: https://ravendos.com/services/app-development
+
+### Website Design & Development
+We craft high-performance websites that balance stunning design with technical excellence. Our web design services include:
+- Custom website design and branding
+- Responsive and mobile-first development
+- SEO-optimized architecture and performance
+- E-commerce website development
+- Landing page design and conversion optimization
+- Website redesign and modernization
+
+Tech stack: Next.js, React, Tailwind CSS, TypeScript, GSAP.
+
+Learn more: https://ravendos.com/services/web-design
+
+### Network & Cyber Security
+We design secure network architectures and implement comprehensive cybersecurity measures. Our security services include:
+- Network architecture design and security hardening
+- Vulnerability assessment and penetration testing
+- Firewall, IDS/IPS configuration and management
+- Zero-trust architecture implementation
+- Compliance consulting (ISO 27001, SOC 2)
+- Security monitoring and incident response
+
+Learn more: https://ravendos.com/services/network-security
+
+## Products
+
+### IntiGrade
+Website: https://intigrade.in
+Tagline: Grading Made Simple.
+AI-powered exam evaluation that bridges the gap between pen and paper. IntiGrade scans, analyzes, and grades physical tests instantly. Built with computer vision and natural language processing to understand handwritten answers and provide accurate, consistent grading.
+
+### DiagnosticWale
+Website: https://diagnosticwale.com
+Tagline: Advanced Diagnostics, Trusted Results.
+India's trusted diagnostic platform connecting patients with labs and providing comprehensive health monitoring and medical testing solutions.
+
+## Philosophy
+
+We design systems that think. We architect platforms that scale. We build what we believe the world needs — then we prove it.
+
+## Technology Stack
+
+- Frontend: Next.js, React, TypeScript, Tailwind CSS
+- Mobile: React Native, Flutter
+- Backend: Node.js, Python
+- AI/ML: TensorFlow, PyTorch, Hugging Face
+- Cloud: AWS, Azure, GCP
+- DevOps: Docker, Kubernetes, Terraform, GitHub Actions
+- Databases: PostgreSQL, MongoDB, Redis
+- Animations: GSAP, WebGL (OGL)
+
+## Location & Contact
+
+RavenDOS Business Ventures LLP
+E/38, G2, 17-1-380, Santosh Nagar Main Road
+Central Excise Colony, Saidabad
+Hyderabad, Telangana 500059, India
+
+- Email: hello@ravendos.com
+- Phone: +91 9000334021
+- Website: https://ravendos.com
+- LinkedIn: https://linkedin.com/company/ravendos
+
+## Languages
+
+English, Hindi, Telugu
+
+## Service Areas
+
+Primary: Hyderabad, Telangana
+Extended: All of India
+Remote: Worldwide
+
+## All Pages
+
+- Homepage: https://ravendos.com
+- Services Overview: https://ravendos.com/services
+- AI/ML Development: https://ravendos.com/services/ai-ml
+- DevOps & Cloud Infrastructure: https://ravendos.com/services/devops
+- App Development: https://ravendos.com/services/app-development
+- Website Design & Development: https://ravendos.com/services/web-design
+- Network & Cyber Security: https://ravendos.com/services/network-security
+- Contact: https://ravendos.com/contact

@@ -124,6 +124,7 @@ export function Footer({ showCta = true }: FooterProps) {
               width={730}
               height={120}
               className="footer-logo h-auto w-[80vw] md:w-[60vw] lg:w-[45vw]"
+              sizes="(max-width: 768px) 80vw, (max-width: 1024px) 60vw, 45vw"
               priority
             />
           </div>
@@ -159,6 +160,13 @@ export function Footer({ showCta = true }: FooterProps) {
               className="group relative inline-block font-[family-name:var(--font-body)] text-sm uppercase tracking-[0.15em] text-text/50 transition-colors duration-300 hover:text-text lg:text-right"
             >
               Products
+              <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-current transition-all duration-300 group-hover:w-full lg:left-auto lg:right-0" />
+            </Link>
+            <Link
+              href="/services"
+              className="group relative inline-block font-[family-name:var(--font-body)] text-sm uppercase tracking-[0.15em] text-text/50 transition-colors duration-300 hover:text-text lg:text-right"
+            >
+              Services
               <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-current transition-all duration-300 group-hover:w-full lg:left-auto lg:right-0" />
             </Link>
             <Link

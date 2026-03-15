@@ -1,10 +1,14 @@
 "use client";
 
 import { useRef, useEffect, useState, Fragment } from "react";
+import Link from "next/link";
 import { gsap, ScrollTrigger } from "@/lib/gsap-setup";
 import { SECTIONS, CAPABILITIES } from "@/lib/constants";
 import { useIsDesktop } from "@/hooks/use-media-query";
 import { SplitText } from "@/components/ui/split-text";
+
+/* ── Map capability index → service page slug ── */
+const CAPABILITY_SLUGS = ["ai-ml", "devops", "network-security", "app-development"];
 
 /* ── Card sub-labels (small text above huge heading) ── */
 const CARD_LABELS = [
@@ -679,6 +683,15 @@ export function Capabilities() {
               >
                 {cap.body}
               </SplitText>
+              <Link
+                href={`/services/${CAPABILITY_SLUGS[i]}`}
+                className="inline-flex items-center gap-2 font-[family-name:var(--font-body)] text-xs uppercase tracking-[0.15em] text-accent mt-4 transition-colors duration-300 hover:text-accent/70"
+              >
+                Learn more
+                <svg className="h-3 w-3" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                  <path d="M1 8h14M9 2l6 6-6 6" />
+                </svg>
+              </Link>
             </div>
           ))}
         </div>
@@ -734,20 +747,26 @@ export function Capabilities() {
               <Fragment key={i}>
                 {/* Individual card — body at top, widget in middle, huge heading at bottom */}
                 <div className="shrink-0 w-[50vw] h-full bg-white flex flex-col px-[4vw] py-[5vh] overflow-hidden" data-nav-theme="light">
-                  {/* Top: body text + accent arrow */}
+                  {/* Top: body text + accent arrow link */}
                   <div className="flex justify-between items-start gap-8">
                     <p className="font-[family-name:var(--font-body)] text-base lg:text-lg text-black/55 max-w-[65%] leading-relaxed pt-2">
                       {cap.body}
                     </p>
-                    <svg
-                      className="h-5 w-5 text-accent shrink-0 mt-2"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
+                    <Link
+                      href={`/services/${CAPABILITY_SLUGS[i]}`}
+                      className="group shrink-0 mt-2"
+                      aria-label={`Learn more about ${cap.heading}`}
                     >
-                      <path d="M7 17L17 7M17 7H7M17 7V17" />
-                    </svg>
+                      <svg
+                        className="h-5 w-5 text-accent transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
+                        <path d="M7 17L17 7M17 7H7M17 7V17" />
+                      </svg>
+                    </Link>
                   </div>
 
                   {/* Middle: animated widget — only active when card is in viewport */}
@@ -767,9 +786,11 @@ export function Capabilities() {
                     <span className="font-[family-name:var(--font-heading)] text-xs tracking-[0.25em] text-black/50 uppercase block mb-3">
                       {CARD_LABELS[i]}
                     </span>
-                    <h3 className="font-[family-name:var(--font-display)] text-[clamp(3rem,8vw,9rem)] font-medium leading-[0.95] tracking-[-0.04em] text-[#1a1a1a]">
-                      {CARD_HEADINGS[i]}
-                    </h3>
+                    <Link href={`/services/${CAPABILITY_SLUGS[i]}`} className="block transition-colors duration-300 hover:text-accent">
+                      <h3 className="font-[family-name:var(--font-display)] text-[clamp(3rem,8vw,9rem)] font-medium leading-[0.95] tracking-[-0.04em] text-[#1a1a1a]">
+                        {CARD_HEADINGS[i]}
+                      </h3>
+                    </Link>
                   </div>
                 </div>
 

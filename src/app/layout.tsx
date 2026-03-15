@@ -3,13 +3,19 @@ import { syncopate, syne, outfit, spaceGrotesk } from "@/lib/fonts";
 import { LenisProvider } from "@/lib/lenis-provider";
 import { GradientBackground } from "@/components/ui/gradient-background";
 import { Navbar } from "@/components/layout/navbar";
+import { GoogleAnalytics } from "@/components/analytics/google-analytics";
+import { buildProfessionalServiceSchema } from "@/lib/schemas";
 import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://ravendos.com"),
-  title: "RavenDOS — Intelligence, Architected.",
+  title: {
+    default:
+      "RavenDOS — Intelligence, Architected. | Technology Studio in Hyderabad",
+    template: "%s | RavenDOS",
+  },
   description:
-    "RavenDOS is a product-driven technology studio that designs, develops, and launches intelligent platforms.",
+    "RavenDOS is a product-driven technology studio in Hyderabad, India. AI/ML development, DevOps, app development, web design, and cybersecurity services.",
   authors: [{ name: "RavenDOS Business Ventures LLP" }],
   creator: "RavenDOS Business Ventures LLP",
   robots: { index: true, follow: true },
@@ -21,17 +27,17 @@ export const metadata: Metadata = {
   openGraph: {
     title: "RavenDOS — Intelligence, Architected.",
     description:
-      "A product-driven technology studio building intelligent platforms.",
+      "A product-driven technology studio in Hyderabad building intelligent platforms. AI/ML, DevOps, app development, web design, and cybersecurity.",
     url: "https://ravendos.com",
     siteName: "RavenDOS",
-    locale: "en_US",
+    locale: "en_IN",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "RavenDOS — Intelligence, Architected.",
     description:
-      "A product-driven technology studio building intelligent platforms.",
+      "A product-driven technology studio in Hyderabad building intelligent platforms.",
   },
 };
 
@@ -39,31 +45,7 @@ export const viewport: Viewport = {
   themeColor: "#0A0A0A",
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "RavenDOS",
-  legalName: "RavenDOS Business Ventures LLP",
-  url: "https://ravendos.com",
-  logo: "https://ravendos.com/images/logo-light.png",
-  description:
-    "A product-driven technology studio that designs, develops, and launches intelligent platforms.",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress:
-      "E/38, G2, 17-1-380, Santosh Nagar Main Road, Central Excise Colony, Saidabad",
-    addressLocality: "Hyderabad",
-    addressRegion: "Telangana",
-    postalCode: "500059",
-    addressCountry: "IN",
-  },
-  contactPoint: {
-    "@type": "ContactPoint",
-    email: "hello@ravendos.com",
-    telephone: "+919000334021",
-    contactType: "customer service",
-  },
-};
+const jsonLd = buildProfessionalServiceSchema();
 
 export default function RootLayout({
   children,
@@ -76,6 +58,7 @@ export default function RootLayout({
       className={`${syncopate.variable} ${syne.variable} ${outfit.variable} ${spaceGrotesk.variable}`}
     >
       <body className="antialiased">
+        <GoogleAnalytics />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

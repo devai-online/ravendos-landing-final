@@ -26,7 +26,13 @@
       "Bash(where:*)",
       "Bash(del \"d:\\\\Work\\\\DevAI\\\\ravendos-landing-final\\\\public\\\\images\\\\logo-dark.png\")",
       "Bash(move \"d:\\\\Work\\\\DevAI\\\\ravendos-landing-final\\\\public\\\\images\\\\logo-dark-trimmed.png\" \"d:\\\\Work\\\\DevAI\\\\ravendos-landing-final\\\\public\\\\images\\\\logo-dark.png\")",
-      "Bash(copy:*)"
+      "Bash(copy:*)",
+      "Bash(find:*)",
+      "Bash(del \"d:\\\\Work\\\\DevAI\\\\ravendos-landing-final\\\\src\\\\components\\\\sections\\\\work-transition.tsx\")",
+      "Bash(del \"d:\\\\Work\\\\DevAI\\\\ravendos-landing-final\\\\src\\\\components\\\\sections\\\\products.tsx\")",
+      "Bash(del \"d:\\\\Work\\\\DevAI\\\\ravendos-landing-final\\\\src\\\\components\\\\sections\\\\clients.tsx\")",
+      "Bash(del \"d:\\\\Work\\\\DevAI\\\\ravendos-landing-final\\\\src\\\\components\\\\sections\\\\contact.tsx\")",
+      "Bash(del \"d:\\\\Work\\\\DevAI\\\\ravendos-landing-final\\\\src\\\\components\\\\sections\\\\client-logos.tsx\")"
     ]
   },
   "hooks": {

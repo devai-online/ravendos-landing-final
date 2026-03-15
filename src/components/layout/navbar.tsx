@@ -105,6 +105,7 @@ export function Navbar() {
               width={120}
               height={20}
               className="h-4 w-auto opacity-90 transition-opacity hover:opacity-100"
+              sizes="120px"
               priority
             />
           </a>

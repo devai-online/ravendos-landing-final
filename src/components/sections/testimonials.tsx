@@ -395,6 +395,7 @@ export function Testimonials() {
                     width={logo.width}
                     height={logo.height}
                     className="h-10 md:h-12 w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                    sizes="(max-width: 640px) 80px, 120px"
                   />
                 </div>
               ))}

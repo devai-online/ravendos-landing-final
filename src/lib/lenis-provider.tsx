@@ -1,6 +1,7 @@
 "use client";
 
-import { createContext, useContext, useEffect, useRef, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import { gsap, ScrollTrigger } from "@/lib/gsap-setup";
 
@@ -12,7 +13,7 @@ export function useLenis() {
 
 export function LenisProvider({ children }: { children: React.ReactNode }) {
   const [lenis, setLenis] = useState<Lenis | null>(null);
-  const rafIdRef = useRef<number | null>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     // Respect reduced motion preferences
@@ -42,6 +43,23 @@ export function LenisProvider({ children }: { children: React.ReactNode }) {
       setLenis(null);
     };
   }, []);
+
+  // Scroll to hash after cross-page navigation (Lenis blocks native hash scroll)
+  useEffect(() => {
+    if (!lenis) return;
+    const hash = window.location.hash;
+    if (!hash) return;
+
+    const id = hash.substring(1);
+    const timer = setTimeout(() => {
+      const el = document.getElementById(id);
+      if (el) {
+        lenis.scrollTo(el, { offset: -80 });
+      }
+    }, 200);
+
+    return () => clearTimeout(timer);
+  }, [lenis, pathname]);
 
   return (
     <LenisContext.Provider value={lenis}>{children}</LenisContext.Provider>

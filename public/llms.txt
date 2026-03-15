@@ -1,0 +1,38 @@
+# RavenDOS — Intelligence, Architected.
+
+> RavenDOS is a product-driven technology studio based in Hyderabad, Telangana, India. We design, develop, and launch intelligent platforms across AI/ML, DevOps, app development, website design, and network security.
+
+## Services
+
+- AI & Machine Learning Development: Custom ML models, NLP, computer vision, predictive analytics, MLOps pipelines
+- DevOps & Cloud Infrastructure: CI/CD pipelines, AWS/Azure/GCP, Kubernetes, Infrastructure as Code, monitoring
+- App Development: Cross-platform mobile apps (React Native, Flutter), web apps (Next.js, React, Node.js), backend APIs
+- Website Design & Development: Custom websites, responsive design, SEO optimization, e-commerce, landing pages
+- Network & Cyber Security: Secure architecture, penetration testing, firewall management, zero-trust, compliance (ISO 27001, SOC 2)
+
+## Products
+
+- IntiGrade (https://intigrade.in): AI-powered exam evaluation that bridges pen-and-paper tests with digital grading
+- DiagnosticWale (https://diagnosticwale.com): India's trusted diagnostic platform connecting patients with labs
+
+## Location
+
+Hyderabad, Telangana 500059, India
+
+## Contact
+
+- Email: hello@ravendos.com
+- Phone: +91 9000334021
+- Website: https://ravendos.com
+- LinkedIn: https://linkedin.com/company/ravendos
+
+## Pages
+
+- Homepage: https://ravendos.com
+- Services: https://ravendos.com/services
+- AI/ML Development: https://ravendos.com/services/ai-ml
+- DevOps & Cloud: https://ravendos.com/services/devops
+- App Development: https://ravendos.com/services/app-development
+- Website Design: https://ravendos.com/services/web-design
+- Network Security: https://ravendos.com/services/network-security
+- Contact: https://ravendos.com/contact
