@@ -24,6 +24,7 @@ export function Marquee() {
     <section
       id={SECTIONS.MARQUEE}
       className="overflow-hidden bg-white py-12 md:py-16 relative z-30"
+      data-nav-theme="light"
     >
       <div
         className="flex w-max"

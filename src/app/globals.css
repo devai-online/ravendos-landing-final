@@ -122,6 +122,53 @@ html {
   animation: cap-art-draw 6s ease-in-out infinite;
 }
 
+/* ── Capability card widget animations ── */
+@keyframes widget-cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes widget-type-line {
+  0% { max-width: 0; }
+  100% { max-width: 100%; }
+}
+
+@keyframes widget-bar-fill {
+  0%, 5% { width: 0%; }
+  70%, 100% { width: 85%; }
+}
+
+@keyframes widget-pulse-dot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 4px #27C93F; }
+  50% { opacity: 0.4; box-shadow: 0 0 8px #27C93F; }
+}
+
+@keyframes widget-spark {
+  0%, 100% { transform: scaleY(0.2); }
+  50% { transform: scaleY(1); }
+}
+
+@keyframes widget-stage-in {
+  0%, 20% { opacity: 0.25; }
+  40%, 100% { opacity: 1; }
+}
+
+@keyframes widget-check-in {
+  0%, 60% { opacity: 0; transform: scale(0); }
+  80% { opacity: 1; transform: scale(1.2); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes widget-fade-in {
+  0% { opacity: 0; transform: translateY(4px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes widget-count-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
 /* Reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
   *,

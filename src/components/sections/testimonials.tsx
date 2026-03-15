@@ -168,6 +168,7 @@ export function Testimonials() {
       ref={sectionRef}
       id={SECTIONS.PRODUCTS}
       className="bg-white relative z-30 overflow-hidden"
+      data-nav-theme="light"
     >
       {/* ═══════════════════════════════════════════
           APPROACH VALUES — 4-column grid (Tiwis Posture pattern)
