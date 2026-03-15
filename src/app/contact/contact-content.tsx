@@ -30,12 +30,12 @@ export function ContactPageContent() {
   }, []);
 
   return (
-    <main className="relative z-[1]">
+    <main id="main-content" className="relative z-[1]">
       <div ref={contentRef}>
         {/* Contact form hero */}
         <section className="flex min-h-svh flex-col justify-center px-6 md:px-12 lg:px-[10vw] pt-32 pb-24 md:pb-32">
           <div className="max-w-2xl">
-            <span className="contact-reveal block font-[family-name:var(--font-heading)] text-xs tracking-[0.25em] text-text/40 uppercase mb-8">
+            <span className="contact-reveal block font-[family-name:var(--font-heading)] text-xs tracking-[0.25em] text-text/50 uppercase mb-8">
               Contact
             </span>
             <h1 className="contact-reveal font-[family-name:var(--font-heading)] text-[clamp(2.5rem,7vw,5rem)] font-bold uppercase mb-6 leading-tight">
@@ -54,7 +54,7 @@ export function ContactPageContent() {
         {/* Alternative contact */}
         <div className="px-6 md:px-12 lg:px-[10vw] pb-16">
           <div className="contact-reveal border-t border-text/10 pt-12">
-            <p className="font-[family-name:var(--font-body)] text-sm text-text/30 mb-3">
+            <p className="font-[family-name:var(--font-body)] text-sm text-text/50 mb-3">
               Or email us directly
             </p>
             <a

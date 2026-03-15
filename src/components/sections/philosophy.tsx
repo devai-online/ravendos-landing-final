@@ -54,7 +54,7 @@ export function Philosophy() {
 
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-3xl text-center px-2">
-        <span className="font-[family-name:var(--font-heading)] text-xs tracking-[0.25em] text-text/40 uppercase block mb-10 md:mb-14">
+        <span className="font-[family-name:var(--font-heading)] text-xs tracking-[0.25em] text-text/50 uppercase block mb-10 md:mb-14">
           Our Philosophy
         </span>
         <SplitText

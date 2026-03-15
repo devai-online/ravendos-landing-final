@@ -7,7 +7,7 @@ import { Footer } from "@/components/layout/footer";
 
 export default function Home() {
   return (
-    <main className="relative z-[1]">
+    <main id="main-content" className="relative z-[1]">
       <Hero />
       <Capabilities />
       <Testimonials />

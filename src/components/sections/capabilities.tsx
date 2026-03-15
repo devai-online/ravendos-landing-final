@@ -654,7 +654,7 @@ export function Capabilities() {
       {/* Mobile: vertical stack — hidden on lg+ */}
       <div className="lg:hidden px-6 py-20 md:py-32">
         <div className="mb-10 md:mb-16">
-          <span className="font-[family-name:var(--font-heading)] text-xs tracking-[0.25em] text-text/40 uppercase block mb-4">
+          <span className="font-[family-name:var(--font-heading)] text-xs tracking-[0.25em] text-text/50 uppercase block mb-4">
             Our Capabilities
           </span>
           <h2 className="font-[family-name:var(--font-heading)] text-[clamp(2rem,8vw,3.5rem)] font-bold uppercase leading-tight">
@@ -688,7 +688,7 @@ export function Capabilities() {
       <div className="hidden lg:block h-svh w-full relative">
         {/* ── Static intro text — behind card wrapper, fades out during scale-up ── */}
         <div ref={introRef} className="absolute inset-0 flex flex-col justify-center px-[10vw] z-0">
-          <span className="font-[family-name:var(--font-heading)] text-sm tracking-[0.2em] text-text/40 uppercase block mb-8">
+          <span className="font-[family-name:var(--font-heading)] text-sm tracking-[0.2em] text-text/50 uppercase block mb-8">
             Our Capabilities
           </span>
           <h2 className="font-[family-name:var(--font-display)] text-[clamp(2rem,3.5vw,3.5rem)] font-light text-text/70 max-w-[55vw] leading-snug tracking-[-0.01em]">
@@ -700,7 +700,7 @@ export function Capabilities() {
         <div ref={overlayRef} className="absolute inset-0 bg-white z-20 flex items-center px-[10vw]" data-nav-theme="light">
           <div className="w-full max-w-7xl mx-auto">
             {/* Label */}
-            <span className="font-[family-name:var(--font-heading)] text-xs tracking-[0.25em] text-black/40 uppercase block mb-4">
+            <span className="font-[family-name:var(--font-heading)] text-xs tracking-[0.25em] text-black/50 uppercase block mb-4">
               Our Work
             </span>
 
@@ -764,7 +764,7 @@ export function Capabilities() {
 
                   {/* Bottom: sub-label + huge display heading */}
                   <div>
-                    <span className="font-[family-name:var(--font-heading)] text-xs tracking-[0.25em] text-black/30 uppercase block mb-3">
+                    <span className="font-[family-name:var(--font-heading)] text-xs tracking-[0.25em] text-black/50 uppercase block mb-3">
                       {CARD_LABELS[i]}
                     </span>
                     <h3 className="font-[family-name:var(--font-display)] text-[clamp(3rem,8vw,9rem)] font-medium leading-[0.95] tracking-[-0.04em] text-[#1a1a1a]">

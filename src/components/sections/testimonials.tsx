@@ -177,7 +177,7 @@ export function Testimonials() {
         <div className="mx-auto max-w-7xl relative">
           {/* Section label + icon on same row */}
           <div className="posture-reveal flex items-center justify-between mb-4">
-            <span className="font-[family-name:var(--font-heading)] text-xs tracking-[0.25em] text-black/40 uppercase">
+            <span className="font-[family-name:var(--font-heading)] text-xs tracking-[0.25em] text-black/50 uppercase">
               Our Approach
             </span>
             <div className="posture-icon w-12 h-12 text-[#FF7C48]/60 hidden lg:block">
@@ -237,7 +237,7 @@ export function Testimonials() {
 
           {/* Our Products label */}
           <div className="posture-reveal mb-8 md:mb-12">
-            <span className="font-[family-name:var(--font-heading)] text-xs tracking-[0.25em] text-black/40 uppercase">
+            <span className="font-[family-name:var(--font-heading)] text-xs tracking-[0.25em] text-black/50 uppercase">
               Our Products
             </span>
           </div>
@@ -316,7 +316,7 @@ export function Testimonials() {
         <div className="mx-auto max-w-7xl">
           {/* Label row */}
           <div className="posture-reveal flex items-center justify-between mb-4">
-            <span className="font-[family-name:var(--font-heading)] text-xs tracking-[0.25em] text-black/40 uppercase">
+            <span className="font-[family-name:var(--font-heading)] text-xs tracking-[0.25em] text-black/50 uppercase">
               Testimonials
             </span>
             <div className="posture-icon w-10 h-10 text-[#FF7C48]/50 hidden lg:block">
@@ -357,7 +357,7 @@ export function Testimonials() {
                     <p className="font-[family-name:var(--font-heading)] text-xs font-bold text-[#1a1a1a]">
                       {t.name}
                     </p>
-                    <p className="font-[family-name:var(--font-body)] text-[11px] text-black/40">
+                    <p className="font-[family-name:var(--font-body)] text-[11px] text-black/50">
                       {t.role} · {t.company}
                     </p>
                   </div>
@@ -378,7 +378,7 @@ export function Testimonials() {
 
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10">
             <div className="posture-reveal flex items-center gap-6">
-              <span className="font-[family-name:var(--font-heading)] text-xs tracking-[0.25em] text-black/40 uppercase">
+              <span className="font-[family-name:var(--font-heading)] text-xs tracking-[0.25em] text-black/50 uppercase">
                 Our Clients
               </span>
               {/* Decorative icon inline with label */}

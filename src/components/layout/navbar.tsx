@@ -87,6 +87,7 @@ export function Navbar() {
   return (
     <>
       <nav
+        aria-label="Main navigation"
         className={`fixed top-0 left-0 right-0 z-50 pointer-events-none transition-all duration-300 ease-out ${
           isHidden ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100"
         }`}
@@ -110,21 +111,27 @@ export function Navbar() {
 
           {/* Center: nav links (desktop) */}
           <div className="hidden items-center gap-10 lg:flex">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                onClick={(e) => handleHashClick(link.href, e)}
-                className={`font-[family-name:var(--font-body)] text-[13px] uppercase tracking-[0.2em] transition-colors duration-300 ${linkColor}`}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {NAV_LINKS.map((link) => {
+              const isActive = pathname === "/" && link.href.startsWith("/#");
+              return (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  onClick={(e) => handleHashClick(link.href, e)}
+                  aria-current={isActive ? "page" : undefined}
+                  className={`group relative font-[family-name:var(--font-body)] text-[13px] uppercase tracking-[0.2em] transition-colors duration-300 ${linkColor}`}
+                >
+                  {link.label}
+                  <span className="absolute -bottom-1 left-0 h-px w-0 bg-current transition-all duration-300 group-hover:w-full" />
+                </Link>
+              );
+            })}
           </div>
 
           {/* Right: Contact button (desktop) */}
           <Link
             href="/contact"
+            aria-current={pathname === "/contact" ? "page" : undefined}
             className={`group hidden items-center gap-3 rounded-full backdrop-blur-[30px] px-5 py-2.5 transition-all duration-300 ease-[cubic-bezier(0.77,0,0.175,1)] lg:flex ${pillBg}`}
           >
             <span className={`font-[family-name:var(--font-body)] text-[13px] font-semibold tracking-wide transition-colors duration-300 ${pillText}`}>

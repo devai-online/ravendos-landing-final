@@ -129,50 +129,55 @@ export function Footer({ showCta = true }: FooterProps) {
           </div>
 
           {/* Right: stacked links */}
-          <nav className="flex flex-col gap-2.5 lg:items-end lg:text-right shrink-0">
+          <nav aria-label="Footer navigation" className="flex flex-col gap-2.5 lg:items-end lg:text-right shrink-0">
             <a
               href="mailto:hello@ravendos.com"
-              className="font-[family-name:var(--font-body)] text-sm uppercase tracking-[0.15em] text-accent transition-colors duration-300 hover:text-accent/70"
+              className="group relative inline-block font-[family-name:var(--font-body)] text-sm uppercase tracking-[0.15em] text-accent transition-colors duration-300 hover:text-accent/70 lg:text-right"
             >
               HELLO@RAVENDOS.COM
+              <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-current transition-all duration-300 group-hover:w-full lg:left-auto lg:right-0" />
             </a>
             <a
               href="tel:+919000334021"
-              className="font-[family-name:var(--font-body)] text-sm uppercase tracking-[0.15em] text-text/70 transition-colors duration-300 hover:text-text"
+              className="group relative inline-block font-[family-name:var(--font-body)] text-sm uppercase tracking-[0.15em] text-text/70 transition-colors duration-300 hover:text-text lg:text-right"
             >
               +91 9000334021
+              <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-current transition-all duration-300 group-hover:w-full lg:left-auto lg:right-0" />
             </a>
             <div className="h-2" />
             <Link
               href="/#philosophy"
               onClick={(e) => handleHashClick("/#philosophy", e)}
-              className="font-[family-name:var(--font-body)] text-sm uppercase tracking-[0.15em] text-text/50 transition-colors duration-300 hover:text-text"
+              className="group relative inline-block font-[family-name:var(--font-body)] text-sm uppercase tracking-[0.15em] text-text/50 transition-colors duration-300 hover:text-text lg:text-right"
             >
               About
+              <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-current transition-all duration-300 group-hover:w-full lg:left-auto lg:right-0" />
             </Link>
             <Link
               href="/#products"
               onClick={(e) => handleHashClick("/#products", e)}
-              className="font-[family-name:var(--font-body)] text-sm uppercase tracking-[0.15em] text-text/50 transition-colors duration-300 hover:text-text"
+              className="group relative inline-block font-[family-name:var(--font-body)] text-sm uppercase tracking-[0.15em] text-text/50 transition-colors duration-300 hover:text-text lg:text-right"
             >
               Products
+              <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-current transition-all duration-300 group-hover:w-full lg:left-auto lg:right-0" />
             </Link>
             <Link
               href="/contact"
-              className="font-[family-name:var(--font-body)] text-sm uppercase tracking-[0.15em] text-text/50 transition-colors duration-300 hover:text-text"
+              className="group relative inline-block font-[family-name:var(--font-body)] text-sm uppercase tracking-[0.15em] text-text/50 transition-colors duration-300 hover:text-text lg:text-right"
             >
               Contact
+              <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-current transition-all duration-300 group-hover:w-full lg:left-auto lg:right-0" />
             </Link>
           </nav>
         </div>
 
         {/* Copyright + Company info */}
         <div className="border-t border-text/15 py-5 flex flex-col gap-1 md:flex-row md:justify-between md:items-center">
-          <p className="font-[family-name:var(--font-body)] text-xs text-text/40">
+          <p className="font-[family-name:var(--font-body)] text-xs text-text/60">
             &copy; {new Date().getFullYear()} RavenDOS Business Ventures LLP.
             All rights reserved.
           </p>
-          <p className="font-[family-name:var(--font-body)] text-xs text-text/30">
+          <p className="font-[family-name:var(--font-body)] text-xs text-text/50">
             E/38, G2, 17-1-380, Santosh Nagar Main Road, Central Excise Colony, Saidabad, Hyderabad, Telangana 500059, India
           </p>
         </div>

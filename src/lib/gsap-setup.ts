@@ -12,4 +12,14 @@ gsap.defaults({
   duration: 1.2,
 });
 
+// Respect prefers-reduced-motion: make all GSAP animations instant
+if (typeof window !== "undefined") {
+  const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const apply = (matches: boolean) => {
+    gsap.globalTimeline.timeScale(matches ? 1000 : 1);
+  };
+  apply(mql.matches);
+  mql.addEventListener("change", (e) => apply(e.matches));
+}
+
 export { gsap, ScrollTrigger, SplitText, useGSAP };

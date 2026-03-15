@@ -20,18 +20,31 @@ function UnderlineInput({
   type?: string;
   error?: string;
 } & React.InputHTMLAttributes<HTMLInputElement>) {
+  const inputId = `field-${props.name}`;
+  const errorId = `${inputId}-error`;
+
   return (
     <div className="relative">
+      <label htmlFor={inputId} className="sr-only">
+        {label}
+      </label>
       <input
+        id={inputId}
         type={type}
         placeholder={label}
-        className="peer w-full border-b border-text/20 bg-transparent py-4 font-[family-name:var(--font-body)] text-base text-text placeholder:text-text/30 focus:outline-none"
+        aria-invalid={error ? true : undefined}
+        aria-describedby={error ? errorId : undefined}
+        className="peer w-full border-b border-text/20 bg-transparent py-4 font-[family-name:var(--font-body)] text-base text-text placeholder:text-text/40"
         {...props}
       />
       {/* Active underline — scales in from left on focus */}
       <div className="absolute bottom-0 left-0 h-[1.5px] w-full origin-left scale-x-0 bg-text transition-transform duration-300 ease-out peer-focus:scale-x-100" />
       {error && (
-        <span className="mt-1 block font-[family-name:var(--font-body)] text-xs text-accent">
+        <span
+          id={errorId}
+          role="alert"
+          className="mt-1 block font-[family-name:var(--font-body)] text-xs text-accent"
+        >
           {error}
         </span>
       )}
@@ -47,17 +60,30 @@ function UnderlineTextarea({
   label: string;
   error?: string;
 } & React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
+  const inputId = `field-${props.name}`;
+  const errorId = `${inputId}-error`;
+
   return (
     <div className="relative">
+      <label htmlFor={inputId} className="sr-only">
+        {label}
+      </label>
       <textarea
+        id={inputId}
         placeholder={label}
         rows={4}
-        className="peer w-full resize-none border-b border-text/20 bg-transparent py-4 font-[family-name:var(--font-body)] text-base text-text placeholder:text-text/30 focus:outline-none"
+        aria-invalid={error ? true : undefined}
+        aria-describedby={error ? errorId : undefined}
+        className="peer w-full resize-none border-b border-text/20 bg-transparent py-4 font-[family-name:var(--font-body)] text-base text-text placeholder:text-text/40"
         {...props}
       />
       <div className="absolute bottom-0 left-0 h-[1.5px] w-full origin-left scale-x-0 bg-text transition-transform duration-300 ease-out peer-focus:scale-x-100" />
       {error && (
-        <span className="mt-1 block font-[family-name:var(--font-body)] text-xs text-accent">
+        <span
+          id={errorId}
+          role="alert"
+          className="mt-1 block font-[family-name:var(--font-body)] text-xs text-accent"
+        >
           {error}
         </span>
       )}
@@ -129,6 +155,7 @@ export function ContactForm() {
         <button
           type="submit"
           disabled={status === "sending"}
+          aria-label="Submit contact form"
           className="group relative flex h-16 w-16 shrink-0 items-center justify-center"
         >
           {/* Rotating halo ring */}
@@ -150,6 +177,7 @@ export function ContactForm() {
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="1.5"
+                aria-hidden="true"
               >
                 <path d="M4 10h12M11 5l5 5-5 5" />
               </svg>
@@ -159,6 +187,7 @@ export function ContactForm() {
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="1.5"
+                aria-hidden="true"
               >
                 <path d="M4 10h12M11 5l5 5-5 5" />
               </svg>
@@ -166,11 +195,13 @@ export function ContactForm() {
           </div>
         </button>
 
-        <span className="font-[family-name:var(--font-body)] text-sm text-text/40">
-          {status === "sending" && "Sending..."}
-          {status === "success" && "Message sent. We\u2019ll be in touch."}
-          {status === "error" && "Something went wrong. Please try again."}
-        </span>
+        <div aria-live="polite" aria-atomic="true">
+          <span className="font-[family-name:var(--font-body)] text-sm text-text/50">
+            {status === "sending" && "Sending..."}
+            {status === "success" && "Message sent. We\u2019ll be in touch."}
+            {status === "error" && "Something went wrong. Please try again."}
+          </span>
+        </div>
       </div>
     </form>
   );
