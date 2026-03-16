@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useRef, useCallback, useEffect } from "react";
 import { useForm, ValidationError } from "@formspree/react";
 
 function UnderlineInput({
@@ -74,8 +75,66 @@ function UnderlineTextarea({
   );
 }
 
+const TURNSTILE_SITE_KEY = "0x4AAAAAACrk6R3ranAd6Qzd";
+
 export function ContactForm() {
   const [state, handleSubmit] = useForm("xwvrnzry");
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [turnstileError, setTurnstileError] = useState(false);
+  const turnstileRef = useRef<HTMLDivElement>(null);
+
+  // Render Turnstile widget once script is loaded
+  useEffect(() => {
+    if (!turnstileRef.current) return;
+
+    const renderWidget = () => {
+      if (
+        typeof window !== "undefined" &&
+        window.turnstile &&
+        turnstileRef.current
+      ) {
+        // Clear any previous widget
+        turnstileRef.current.innerHTML = "";
+        window.turnstile.render(turnstileRef.current, {
+          sitekey: TURNSTILE_SITE_KEY,
+          theme: "dark",
+          callback: (token: string) => {
+            setTurnstileToken(token);
+            setTurnstileError(false);
+          },
+          "expired-callback": () => setTurnstileToken(null),
+          "error-callback": () => setTurnstileToken(null),
+        });
+      }
+    };
+
+    // If script already loaded, render immediately
+    if (window.turnstile) {
+      renderWidget();
+    } else {
+      // Wait for script to load
+      const interval = setInterval(() => {
+        if (window.turnstile) {
+          clearInterval(interval);
+          renderWidget();
+        }
+      }, 200);
+      return () => clearInterval(interval);
+    }
+  }, []);
+
+  const onSubmit = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      if (!turnstileToken) {
+        setTurnstileError(true);
+        return;
+      }
+      setTurnstileError(false);
+      handleSubmit(e);
+    },
+    [turnstileToken, handleSubmit]
+  );
 
   if (state.succeeded) {
     return (
@@ -91,7 +150,16 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="w-full">
+    <form onSubmit={onSubmit} className="w-full">
+      {/* Honeypot field — hidden from humans, catches bots */}
+      <input
+        type="text"
+        name="_gotcha"
+        style={{ display: "none" }}
+        tabIndex={-1}
+        autoComplete="off"
+      />
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 xl:gap-x-16">
         {/* Left column: Name, Email, Company */}
         <div className="space-y-6">
@@ -126,6 +194,23 @@ export function ContactForm() {
             className="mt-1 block font-[family-name:var(--font-body)] text-xs text-accent"
           />
         </div>
+      </div>
+
+      {/* Turnstile widget + hidden token field */}
+      <div className="mt-8">
+        <div ref={turnstileRef} />
+        {turnstileToken && (
+          <input
+            type="hidden"
+            name="cf-turnstile-response"
+            value={turnstileToken}
+          />
+        )}
+        {turnstileError && (
+          <p className="mt-2 font-[family-name:var(--font-body)] text-xs text-accent">
+            Please verify you are human.
+          </p>
+        )}
       </div>
 
       {/* Submit row */}

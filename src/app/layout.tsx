@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { syncopate, syne, outfit, spaceGrotesk } from "@/lib/fonts";
 import { LenisProvider } from "@/lib/lenis-provider";
 import { GradientBackground } from "@/components/ui/gradient-background";
@@ -69,6 +70,10 @@ export default function RootLayout({
         >
           Skip to content
         </a>
+        <Script
+          src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+          strategy="lazyOnload"
+        />
         <GradientBackground />
         <LenisProvider>
           <Navbar />
