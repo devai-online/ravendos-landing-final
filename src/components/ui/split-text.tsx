@@ -31,6 +31,7 @@ export function SplitText({
       const split = new GSAPSplitText(ref.current, {
         type: "lines",
         linesClass: "split-line-mask",
+        aria: "none",
       });
 
       // Wrap each line's content in an inner div for the reveal

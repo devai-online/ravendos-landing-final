@@ -51,13 +51,21 @@ export function LenisProvider({ children }: { children: React.ReactNode }) {
     if (!hash) return;
 
     const id = hash.substring(1);
-    const timer = setTimeout(() => {
+    let attempts = 0;
+    const maxAttempts = 10;
+
+    // Retry until element exists (for dynamic imports) or max attempts reached
+    const tryScroll = () => {
       const el = document.getElementById(id);
       if (el) {
         lenis.scrollTo(el, { offset: -80 });
+      } else if (attempts < maxAttempts) {
+        attempts++;
+        setTimeout(tryScroll, 100);
       }
-    }, 200);
+    };
 
+    const timer = setTimeout(tryScroll, 100);
     return () => clearTimeout(timer);
   }, [lenis, pathname]);
 

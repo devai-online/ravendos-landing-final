@@ -712,7 +712,7 @@ export function Capabilities() {
         <div ref={overlayRef} className="absolute inset-0 bg-white z-20 flex items-center px-[10vw]" data-nav-theme="light">
           <div className="w-full max-w-7xl mx-auto">
             {/* Label */}
-            <span className="font-[family-name:var(--font-heading)] text-xs tracking-[0.25em] text-black/50 uppercase block mb-4">
+            <span className="font-[family-name:var(--font-heading)] text-xs tracking-[0.25em] text-black/60 uppercase block mb-4">
               Our Work
             </span>
 

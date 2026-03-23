@@ -24,23 +24,20 @@ export function Hero() {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
 
+      // Clip-mask reveal: h1 starts below overflow-hidden boundary (no opacity:0).
+      // This keeps the element in the DOM for LCP but hides it via clipping.
       if (nameRef.current) {
-        tl.fromTo(
-          nameRef.current,
-          { opacity: 0, y: 80, rotation: 2.5 },
-          { opacity: 1, y: 0, rotation: 0, duration: 1.5 },
-          0.2
-        );
+        const h1 = nameRef.current.querySelector("h1");
+        if (h1) {
+          gsap.set(h1, { yPercent: 110, rotation: 2.5 });
+          tl.to(h1, { yPercent: 0, rotation: 0, duration: 1.5 }, 0.2);
+        }
       }
 
       if (taglineRef.current) {
         const lines = taglineRef.current.querySelectorAll(".tagline-line");
-        tl.fromTo(
-          lines,
-          { opacity: 0, y: 50, rotation: 2.5 },
-          { opacity: 1, y: 0, rotation: 0, duration: 1.2, stagger: 0.2 },
-          0.5
-        );
+        gsap.set(lines, { yPercent: 110, rotation: 2.5 });
+        tl.to(lines, { yPercent: 0, rotation: 0, duration: 1.2, stagger: 0.2 }, 0.5);
       }
 
       // Scroll-driven exit (desktop only): heading shrinks, tagline/sphere fade
@@ -115,7 +112,7 @@ export function Hero() {
       {/* Tagline — right side, vertically centered (desktop) */}
       <div
         ref={taglineRef}
-        className="absolute right-[5vw] top-[32%] z-10 hidden text-right lg:block"
+        className="absolute right-[5vw] top-[32%] z-10 hidden text-right lg:block overflow-hidden"
       >
         <p className="tagline-line font-[family-name:var(--font-heading)] text-[clamp(1.2rem,2.4vw,2.4rem)] font-bold uppercase leading-tight text-text/70">
           Intelligence,
@@ -133,7 +130,7 @@ export function Hero() {
       </div>
 
       {/* RAVENDOS — massive, bottom-left */}
-      <div ref={nameRef} className="relative z-10 pb-[5vh] md:pb-[6vh] px-6 md:px-12">
+      <div ref={nameRef} className="relative z-10 pb-[5vh] md:pb-[6vh] px-6 md:px-12 overflow-hidden">
         <h1 className="font-[family-name:var(--font-hero)] text-[clamp(2rem,11.5vw,14rem)] font-bold leading-[0.9] tracking-tight">
           RAVEN<span className="text-accent">DOS</span>
         </h1>

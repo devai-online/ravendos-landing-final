@@ -3,18 +3,16 @@
 import { useCallback } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useLenis } from "@/lib/lenis-provider";
-import { usePageTransition } from "@/components/ui/page-transition";
 
 /**
  * Returns a click handler for hash links (e.g. /#products).
- * Same page: plays horizontal wipe transition, then instant-scrolls to target.
+ * Same page: smooth-scrolls to target section.
  * Cross page: navigates without scroll, LenisProvider handles hash scroll.
  */
 export function useHashNav() {
   const lenis = useLenis();
   const pathname = usePathname();
   const router = useRouter();
-  const transition = usePageTransition();
 
   return useCallback(
     (href: string, e: React.MouseEvent) => {
@@ -28,25 +26,15 @@ export function useHashNav() {
       e.preventDefault();
 
       if (pathname === path) {
-        // Same page — play transition, then instant-scroll to target
-        const scrollToTarget = () => {
-          const el = document.getElementById(hash);
-          if (el) {
-            if (lenis) {
-              lenis.scrollTo(el, { immediate: true, offset: -80 });
-            } else {
-              const y =
-                el.getBoundingClientRect().top + window.scrollY - 80;
-              window.scrollTo(0, y);
-            }
+        // Same page — smooth scroll to target
+        const el = document.getElementById(hash);
+        if (el) {
+          if (lenis) {
+            lenis.scrollTo(el, { offset: -80 });
+          } else {
+            const y = el.getBoundingClientRect().top + window.scrollY - 80;
+            window.scrollTo({ top: y, behavior: "smooth" });
           }
-        };
-
-        if (transition) {
-          transition.trigger(scrollToTarget);
-        } else {
-          // Fallback: scroll directly if TransitionProvider is missing
-          scrollToTarget();
         }
         window.history.pushState(null, "", href);
       } else {
@@ -58,6 +46,6 @@ export function useHashNav() {
         }, 100);
       }
     },
-    [lenis, pathname, router, transition]
+    [lenis, pathname, router]
   );
 }

@@ -68,7 +68,7 @@ export function TransitionProvider({
       {/* Horizontal wipe overlay */}
       <div
         ref={panelRef}
-        className="fixed inset-0 z-[90] hidden bg-bg"
+        className="fixed inset-0 z-[9999] hidden bg-bg"
         style={{ transform: "translateX(100%)" }}
         aria-hidden="true"
       >

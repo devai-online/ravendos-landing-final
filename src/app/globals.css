@@ -76,7 +76,7 @@ html {
 
 /* Tiwis Posture-style: heading fades vertically from dark to medium */
 .text-gradient-fade {
-  background: linear-gradient(180deg, #1a1a1a 0%, #1a1a1a 40%, #777 100%);
+  background: linear-gradient(180deg, #1a1a1a 0%, #1a1a1a 40%, #555 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
