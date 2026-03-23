@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import Image from "next/image";
-import { gsap, useGSAP } from "@/lib/gsap-setup";
+import { gsap } from "@/lib/gsap-setup";
 import { TESTIMONIALS, SECTIONS, PRODUCTS } from "@/lib/constants";
 import { SplitText } from "@/components/ui/split-text";
 import { ClipReveal } from "@/components/ui/clip-reveal";
@@ -85,81 +85,100 @@ function IconCross({ className = "" }: { className?: string }) {
 export function Testimonials() {
   const sectionRef = useRef<HTMLElement>(null);
 
-  useGSAP(
-    () => {
+  // Defer GSAP setup to avoid blocking main thread during initial page load.
+  // This section is below the fold, so animations init when browser is idle.
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    let ctx: gsap.Context | undefined;
+    const idleId =
+      typeof requestIdleCallback !== "undefined"
+        ? requestIdleCallback(initAnimations, { timeout: 3000 })
+        : (setTimeout(initAnimations, 100) as unknown as number);
+
+    function initAnimations() {
       if (!sectionRef.current) return;
-
-      // Reveal animations for content
-      const els = gsap.utils.toArray<HTMLElement>(
-        ".posture-reveal",
-        sectionRef.current
-      );
-      els.forEach((el) => {
-        gsap.fromTo(
-          el,
-          { opacity: 0, y: 40 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            ease: "power4.out",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 90%",
-              toggleActions: "play none none none",
-            },
-          }
+      ctx = gsap.context(() => {
+        // Reveal animations for content
+        const els = gsap.utils.toArray<HTMLElement>(
+          ".posture-reveal",
+          sectionRef.current!
         );
-      });
+        els.forEach((el) => {
+          gsap.fromTo(
+            el,
+            { opacity: 0, y: 40 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 1,
+              ease: "power4.out",
+              scrollTrigger: {
+                trigger: el,
+                start: "top 90%",
+                toggleActions: "play none none none",
+              },
+            }
+          );
+        });
 
-      // Decorative line draw animations
-      const lines = gsap.utils.toArray<HTMLElement>(
-        ".posture-line",
-        sectionRef.current
-      );
-      lines.forEach((line) => {
-        gsap.fromTo(
-          line,
-          { scaleX: 0 },
-          {
-            scaleX: 1,
-            duration: 1.2,
-            ease: "power4.out",
-            scrollTrigger: {
-              trigger: line,
-              start: "top 92%",
-              toggleActions: "play none none none",
-            },
-          }
+        // Decorative line draw animations
+        const lines = gsap.utils.toArray<HTMLElement>(
+          ".posture-line",
+          sectionRef.current!
         );
-      });
+        lines.forEach((line) => {
+          gsap.fromTo(
+            line,
+            { scaleX: 0 },
+            {
+              scaleX: 1,
+              duration: 1.2,
+              ease: "power4.out",
+              scrollTrigger: {
+                trigger: line,
+                start: "top 92%",
+                toggleActions: "play none none none",
+              },
+            }
+          );
+        });
 
-      // SVG icon reveals (scale + rotate)
-      const icons = gsap.utils.toArray<HTMLElement>(
-        ".posture-icon",
-        sectionRef.current
-      );
-      icons.forEach((icon) => {
-        gsap.fromTo(
-          icon,
-          { opacity: 0, scale: 0.6, rotation: -15 },
-          {
-            opacity: 1,
-            scale: 1,
-            rotation: 0,
-            duration: 1,
-            ease: "power4.out",
-            scrollTrigger: {
-              trigger: icon,
-              start: "top 90%",
-              toggleActions: "play none none none",
-            },
-          }
+        // SVG icon reveals (scale + rotate)
+        const icons = gsap.utils.toArray<HTMLElement>(
+          ".posture-icon",
+          sectionRef.current!
         );
-      });
-    },
-    { scope: sectionRef }
-  );
+        icons.forEach((icon) => {
+          gsap.fromTo(
+            icon,
+            { opacity: 0, scale: 0.6, rotation: -15 },
+            {
+              opacity: 1,
+              scale: 1,
+              rotation: 0,
+              duration: 1,
+              ease: "power4.out",
+              scrollTrigger: {
+                trigger: icon,
+                start: "top 90%",
+                toggleActions: "play none none none",
+              },
+            }
+          );
+        });
+      }, sectionRef);
+    }
+
+    return () => {
+      if (typeof cancelIdleCallback !== "undefined") {
+        cancelIdleCallback(idleId);
+      } else {
+        clearTimeout(idleId);
+      }
+      ctx?.revert();
+    };
+  }, []);
 
   const product = PRODUCTS[0];
 

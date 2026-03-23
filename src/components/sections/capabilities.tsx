@@ -592,6 +592,10 @@ export function Capabilities() {
       const vw = window.innerWidth;
       const scrollDistance = track.scrollWidth - vw;
 
+      // Initial state
+      gsap.set(wrapper, { scale: 0 });
+      gsap.set(overlay, { yPercent: 100 });
+
       // Phase durations in scroll pixels
       const scaleScroll = window.innerHeight * 1.2;
       const overlayScroll = window.innerHeight * 0.8;
@@ -599,11 +603,6 @@ export function Capabilities() {
       const scaleFraction = scaleScroll / totalDistance;
       const scrollFraction = scrollDistance / totalDistance;
       const overlayFraction = overlayScroll / totalDistance;
-
-      // Wrapper starts invisible (scale 0), anchored at bottom-right
-      gsap.set(wrapper, { scale: 0 });
-      // Overlay starts below viewport
-      gsap.set(overlay, { yPercent: 100 });
 
       const tl = gsap.timeline({
         scrollTrigger: {

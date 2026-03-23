@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { syncopate, syne, outfit, spaceGrotesk } from "@/lib/fonts";
 import { LenisProvider } from "@/lib/lenis-provider";
+import { TransitionProvider } from "@/components/ui/page-transition";
 import { GradientBackground } from "@/components/ui/gradient-background";
 import { Navbar } from "@/components/layout/navbar";
 import { GoogleAnalytics } from "@/components/analytics/google-analytics";
@@ -76,8 +77,10 @@ export default function RootLayout({
         />
         <GradientBackground />
         <LenisProvider>
-          <Navbar />
-          {children}
+          <TransitionProvider>
+            <Navbar />
+            {children}
+          </TransitionProvider>
         </LenisProvider>
       </body>
     </html>

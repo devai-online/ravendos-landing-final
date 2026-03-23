@@ -90,19 +90,23 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
       {/* Links */}
       <div ref={linksRef} className="flex flex-col items-center gap-8">
-        {NAV_LINKS.map((link) => (
-          <Link
-            key={link.label}
-            href={link.href}
-            onClick={(e) => {
-              handleHashClick(link.href, e);
-              onClose();
-            }}
-            className="font-[family-name:var(--font-heading)] text-[clamp(2rem,8vw,3.5rem)] font-bold uppercase text-text transition-colors hover:text-accent"
-          >
-            {link.label}
-          </Link>
-        ))}
+        {NAV_LINKS.map((link) => {
+          const isHash = link.href.includes("#");
+          return (
+            <Link
+              key={link.label}
+              href={link.href}
+              onClick={(e) => {
+                if (isHash) handleHashClick(link.href, e);
+                onClose();
+              }}
+              scroll={!isHash}
+              className="font-[family-name:var(--font-heading)] text-[clamp(2rem,8vw,3.5rem)] font-bold uppercase text-text transition-colors hover:text-accent"
+            >
+              {link.label}
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

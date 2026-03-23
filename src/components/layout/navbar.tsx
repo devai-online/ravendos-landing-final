@@ -113,12 +113,14 @@ export function Navbar() {
           {/* Center: nav links (desktop) */}
           <div className="hidden items-center gap-10 lg:flex">
             {NAV_LINKS.map((link) => {
-              const isActive = pathname === "/" && link.href.startsWith("/#");
+              const isHash = link.href.includes("#");
+              const isActive = pathname === "/" && isHash;
               return (
                 <Link
                   key={link.label}
                   href={link.href}
-                  onClick={(e) => handleHashClick(link.href, e)}
+                  onClick={isHash ? (e) => handleHashClick(link.href, e) : undefined}
+                  scroll={!isHash}
                   aria-current={isActive ? "page" : undefined}
                   className={`group relative font-[family-name:var(--font-body)] text-[13px] uppercase tracking-[0.2em] transition-colors duration-300 ${linkColor}`}
                 >

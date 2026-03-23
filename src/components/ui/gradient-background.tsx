@@ -140,15 +140,9 @@ export function GradientBackground() {
 
         let animateId: number;
         let time = 0;
-        // Throttle to ~30fps on mobile for better performance
-        const frameInterval = isMobile ? 1000 / 30 : 0;
-        let lastFrame = 0;
 
-        function update(now: number) {
+        function update() {
           animateId = requestAnimationFrame(update);
-
-          if (isMobile && now - lastFrame < frameInterval) return;
-          lastFrame = now;
 
           time += 0.01;
 
