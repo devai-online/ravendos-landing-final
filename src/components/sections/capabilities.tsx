@@ -687,7 +687,7 @@ export function Capabilities() {
                 href={`/services/${CAPABILITY_SLUGS[i]}`}
                 className="inline-flex items-center gap-2 font-[family-name:var(--font-body)] text-xs uppercase tracking-[0.15em] text-accent mt-4 transition-colors duration-300 hover:text-accent/70"
               >
-                Learn more
+                Learn more<span className="sr-only"> about {cap.heading}</span>
                 <svg className="h-3 w-3" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
                   <path d="M1 8h14M9 2l6 6-6 6" />
                 </svg>

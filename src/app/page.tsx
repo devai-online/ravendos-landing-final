@@ -1,10 +1,21 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { Hero } from "@/components/sections/hero";
-import { Capabilities } from "@/components/sections/capabilities";
-import { Marquee } from "@/components/sections/marquee";
-import { Testimonials } from "@/components/sections/testimonials";
-import { Philosophy } from "@/components/sections/philosophy";
 import { Footer } from "@/components/layout/footer";
+
+/* Below-fold sections: lazy-loaded to reduce initial JS and TBT. */
+const Capabilities = dynamic(
+  () => import("@/components/sections/capabilities").then((m) => m.Capabilities),
+);
+const Testimonials = dynamic(
+  () => import("@/components/sections/testimonials").then((m) => m.Testimonials),
+);
+const Marquee = dynamic(
+  () => import("@/components/sections/marquee").then((m) => m.Marquee),
+);
+const Philosophy = dynamic(
+  () => import("@/components/sections/philosophy").then((m) => m.Philosophy),
+);
 
 export const metadata: Metadata = {
   title:

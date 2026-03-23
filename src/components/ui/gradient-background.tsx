@@ -72,93 +72,110 @@ export function GradientBackground() {
 
     let cancelled = false;
     let cleanupFn: (() => void) | undefined;
+    const isMobile = window.innerWidth < 768;
 
-    // Dynamically import OGL to avoid SSR issues
-    import("ogl").then(({ Renderer, Program, Mesh, Triangle, Vec2 }) => {
+    // Defer WebGL init to avoid blocking main thread during page load
+    const scheduleInit = typeof requestIdleCallback !== "undefined"
+      ? (cb: () => void) => { const id = requestIdleCallback(cb, { timeout: 2000 }); return () => cancelIdleCallback(id); }
+      : (cb: () => void) => { const id = setTimeout(cb, 100); return () => clearTimeout(id); };
+
+    const cancelInit = scheduleInit(() => {
       if (cancelled || !container) return;
 
-      let renderer: InstanceType<typeof Renderer>;
-      try {
-        renderer = new Renderer({
-          alpha: false,
-          dpr: Math.min(window.devicePixelRatio, 1.5),
-          preserveDrawingBuffer: true,
-        });
-      } catch {
-        // WebGL not available — fallback to static bg color
-        return;
-      }
+      // Dynamically import OGL to avoid SSR issues
+      import("ogl").then(({ Renderer, Program, Mesh, Triangle, Vec2 }) => {
+        if (cancelled || !container) return;
 
-      const gl = renderer.gl;
-      container.appendChild(gl.canvas);
-      gl.canvas.classList.add("gradient-canvas");
-      gl.canvas.style.width = "100%";
-      gl.canvas.style.height = "100%";
-      gl.canvas.style.display = "block";
-
-      const geometry = new Triangle(gl);
-
-      const program = new Program(gl, {
-        vertex: vertexShader,
-        fragment: fragmentShader,
-        uniforms: {
-          u_time: { value: 0 },
-          u_mouse: { value: new Vec2(0.5, 0.5) },
-          u_resolution: { value: new Vec2(window.innerWidth, window.innerHeight) },
-        },
-      });
-
-      const mesh = new Mesh(gl, { geometry, program });
-
-      // Mouse tracking (normalized 0–1)
-      const mouseTarget = { x: 0.5, y: 0.5 };
-      const mouseCurrent = { x: 0.5, y: 0.5 };
-
-      function onMouseMove(e: MouseEvent) {
-        mouseTarget.x = e.clientX / window.innerWidth;
-        mouseTarget.y = 1.0 - e.clientY / window.innerHeight; // flip Y for GL
-      }
-      window.addEventListener("mousemove", onMouseMove);
-
-      function resize() {
-        if (!container) return;
-        const w = container.clientWidth;
-        const h = container.clientHeight;
-        renderer.setSize(w, h);
-        program.uniforms.u_resolution.value.set(w, h);
-      }
-      window.addEventListener("resize", resize);
-      resize();
-
-      let animateId: number;
-      let time = 0;
-
-      function update() {
-        animateId = requestAnimationFrame(update);
-        time += 0.01;
-
-        // Smooth mouse lerp
-        mouseCurrent.x += (mouseTarget.x - mouseCurrent.x) * 0.05;
-        mouseCurrent.y += (mouseTarget.y - mouseCurrent.y) * 0.05;
-
-        program.uniforms.u_time.value = time;
-        program.uniforms.u_mouse.value.set(mouseCurrent.x, mouseCurrent.y);
-        renderer.render({ scene: mesh });
-      }
-      animateId = requestAnimationFrame(update);
-
-      cleanupFn = () => {
-        window.removeEventListener("resize", resize);
-        window.removeEventListener("mousemove", onMouseMove);
-        cancelAnimationFrame(animateId);
-        if (gl.canvas.parentNode === container) {
-          container.removeChild(gl.canvas);
+        let renderer: InstanceType<typeof Renderer>;
+        try {
+          renderer = new Renderer({
+            alpha: false,
+            dpr: Math.min(window.devicePixelRatio, isMobile ? 1.0 : 1.5),
+          });
+        } catch {
+          // WebGL not available — fallback to static bg color
+          return;
         }
-      };
+
+        const gl = renderer.gl;
+        container.appendChild(gl.canvas);
+        gl.canvas.classList.add("gradient-canvas");
+        gl.canvas.style.width = "100%";
+        gl.canvas.style.height = "100%";
+        gl.canvas.style.display = "block";
+
+        const geometry = new Triangle(gl);
+
+        const program = new Program(gl, {
+          vertex: vertexShader,
+          fragment: fragmentShader,
+          uniforms: {
+            u_time: { value: 0 },
+            u_mouse: { value: new Vec2(0.5, 0.5) },
+            u_resolution: { value: new Vec2(window.innerWidth, window.innerHeight) },
+          },
+        });
+
+        const mesh = new Mesh(gl, { geometry, program });
+
+        // Mouse tracking (normalized 0–1)
+        const mouseTarget = { x: 0.5, y: 0.5 };
+        const mouseCurrent = { x: 0.5, y: 0.5 };
+
+        function onMouseMove(e: MouseEvent) {
+          mouseTarget.x = e.clientX / window.innerWidth;
+          mouseTarget.y = 1.0 - e.clientY / window.innerHeight; // flip Y for GL
+        }
+        window.addEventListener("mousemove", onMouseMove);
+
+        function resize() {
+          if (!container) return;
+          const w = container.clientWidth;
+          const h = container.clientHeight;
+          renderer.setSize(w, h);
+          program.uniforms.u_resolution.value.set(w, h);
+        }
+        window.addEventListener("resize", resize);
+        resize();
+
+        let animateId: number;
+        let time = 0;
+        // Throttle to ~30fps on mobile for better performance
+        const frameInterval = isMobile ? 1000 / 30 : 0;
+        let lastFrame = 0;
+
+        function update(now: number) {
+          animateId = requestAnimationFrame(update);
+
+          if (isMobile && now - lastFrame < frameInterval) return;
+          lastFrame = now;
+
+          time += 0.01;
+
+          // Smooth mouse lerp
+          mouseCurrent.x += (mouseTarget.x - mouseCurrent.x) * 0.05;
+          mouseCurrent.y += (mouseTarget.y - mouseCurrent.y) * 0.05;
+
+          program.uniforms.u_time.value = time;
+          program.uniforms.u_mouse.value.set(mouseCurrent.x, mouseCurrent.y);
+          renderer.render({ scene: mesh });
+        }
+        animateId = requestAnimationFrame(update);
+
+        cleanupFn = () => {
+          window.removeEventListener("resize", resize);
+          window.removeEventListener("mousemove", onMouseMove);
+          cancelAnimationFrame(animateId);
+          if (gl.canvas.parentNode === container) {
+            container.removeChild(gl.canvas);
+          }
+        };
+      });
     });
 
     return () => {
       cancelled = true;
+      cancelInit();
       cleanupFn?.();
     };
   }, []);
