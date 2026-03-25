@@ -13,7 +13,6 @@ export const NAV_LINKS = [
   { label: "About", href: `/#${SECTIONS.PHILOSOPHY}` },
   { label: "Products", href: `/#${SECTIONS.PRODUCTS}` },
   { label: "Services", href: "/services" },
-  { label: "Contact", href: "/contact" },
 ] as const;
 
 // Capabilities data

@@ -52,7 +52,7 @@ export function ContactPageContent() {
     <main
       id="main-content"
       ref={contentRef}
-      className="relative z-[1] flex min-h-svh flex-col lg:h-svh lg:overflow-hidden"
+      className="relative z-[1] flex min-h-svh flex-col"
     >
       {/* Breadcrumbs + h1 */}
       <div className="px-6 md:px-12 lg:px-[10vw] pt-24 md:pt-28">
@@ -108,7 +108,7 @@ export function ContactPageContent() {
           >
             <a
               href="mailto:hello@ravendos.com"
-              className="group relative inline-block font-[family-name:var(--font-body)] text-sm uppercase tracking-[0.15em] text-accent transition-colors duration-300 hover:text-accent/70"
+              className="group relative inline-block font-[family-name:var(--font-body)] text-base md:text-lg uppercase tracking-[0.15em] text-accent transition-colors duration-300 hover:text-accent/70"
             >
               HELLO@RAVENDOS.COM
               <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-current transition-all duration-300 group-hover:w-full lg:left-auto lg:right-0" />
@@ -145,17 +145,6 @@ export function ContactPageContent() {
           </nav>
         </div>
 
-        {/* Copyright */}
-        <div className="contact-reveal border-t border-text/15 py-4 flex flex-col gap-1 md:flex-row md:justify-between md:items-center">
-          <p className="font-[family-name:var(--font-body)] text-xs text-text/60">
-            &copy; {new Date().getFullYear()} RavenDOS Business Ventures LLP.
-            All rights reserved.
-          </p>
-          <p className="font-[family-name:var(--font-body)] text-xs text-text/50">
-            E/38, G2, 17-1-380, Santosh Nagar Main Road, Central Excise Colony,
-            Saidabad, Hyderabad, Telangana 500059, India
-          </p>
-        </div>
       </div>
     </main>
   );

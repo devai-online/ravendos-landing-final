@@ -30,9 +30,8 @@ function UnderlineInput({
           type={type}
           name={name}
           required={required}
-          className="peer w-full border-b border-text/20 bg-transparent py-3 font-[family-name:var(--font-body)] text-base text-text focus:outline-none"
+          className="peer w-full border border-text/15 bg-transparent px-3 py-3 font-[family-name:var(--font-body)] text-base text-text focus:outline-none focus:border-text/40 transition-colors duration-300"
         />
-        <div className="absolute bottom-0 left-0 h-[1.5px] w-full origin-left scale-x-0 bg-text transition-transform duration-300 ease-out peer-focus:scale-x-100" />
       </div>
     </div>
   );
@@ -65,11 +64,10 @@ function UnderlineTextarea({
           name={name}
           required={required}
           rows={tall ? undefined : 4}
-          className={`peer w-full resize-none border-b border-text/20 bg-transparent py-3 font-[family-name:var(--font-body)] text-base text-text focus:outline-none ${
+          className={`peer w-full resize-none border border-text/15 bg-transparent px-3 py-3 font-[family-name:var(--font-body)] text-base text-text focus:outline-none focus:border-text/40 transition-colors duration-300 ${
             tall ? "h-full min-h-[100px]" : ""
           }`}
         />
-        <div className="absolute bottom-0 left-0 h-[1.5px] w-full origin-left scale-x-0 bg-text transition-transform duration-300 ease-out peer-focus:scale-x-100" />
       </div>
     </div>
   );
