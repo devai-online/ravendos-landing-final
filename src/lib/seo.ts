@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 const BASE_URL = "https://ravendos.com";
+const DEFAULT_OG_IMAGE = `${BASE_URL}/logo/sig.png`;
 
 interface PageMetaOptions {
   title: string;
@@ -33,11 +34,20 @@ export function buildPageMetadata({
       siteName: "RavenDOS",
       locale: "en_IN",
       type: "website",
+      images: [
+        {
+          url: DEFAULT_OG_IMAGE,
+          width: 1200,
+          height: 630,
+          alt: "RavenDOS — Intelligence, Architected.",
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: [DEFAULT_OG_IMAGE],
     },
   };
 }

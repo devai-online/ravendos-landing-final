@@ -7,16 +7,25 @@ import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { Footer } from "@/components/layout/footer";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Technology Services in Hyderabad | AI, DevOps, App Development | RavenDOS",
+  title: "Technology Services — AI, DevOps, Full Stack | RavenDOS",
   description:
-    "RavenDOS offers AI/ML development, DevOps, app development, website design, and network security services in Hyderabad, Telangana. Intelligence, Architected.",
+    "Explore RavenDOS services: AI/ML, DevOps & cloud, full stack software, web design, cybersecurity, DevSecOps & app development. Hyderabad, India.",
   path: "/services",
   keywords: [
-    "software development company Hyderabad",
-    "technology services Telangana",
-    "IT company Hyderabad",
-    "AI development Hyderabad",
-    "DevOps Hyderabad",
+    "software development services Hyderabad",
+    "technology services company India",
+    "IT services Telangana",
+    "AI and DevOps solutions",
+    "full stack and cloud services",
+    "secure software development company",
+    "end-to-end technology solutions",
+    "AI cloud DevOps solutions",
+    "enterprise software services India",
+    "hire technology team India",
+    "custom software development services",
+    "managed IT services Hyderabad",
+    "digital transformation services",
+    "technology partner India",
   ],
 });
 

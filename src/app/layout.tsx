@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     template: "%s | RavenDOS",
   },
   description:
-    "RavenDOS is a product-driven technology studio in Hyderabad, India. AI/ML development, DevOps, app development, web design, and cybersecurity services.",
+    "RavenDOS is a product-driven technology studio in Hyderabad, India. AI/ML, full stack development, DevOps, DevSecOps, app development, web design & cybersecurity services.",
   authors: [{ name: "RavenDOS Business Ventures LLP" }],
   creator: "RavenDOS Business Ventures LLP",
   robots: { index: true, follow: true },
@@ -28,17 +28,26 @@ export const metadata: Metadata = {
   openGraph: {
     title: "RavenDOS — Intelligence, Architected.",
     description:
-      "A product-driven technology studio in Hyderabad building intelligent platforms. AI/ML, DevOps, app development, web design, and cybersecurity.",
+      "A product-driven technology studio in Hyderabad building intelligent platforms. AI/ML, full stack, DevOps, DevSecOps, app development, web design & cybersecurity.",
     url: "https://ravendos.com",
     siteName: "RavenDOS",
     locale: "en_IN",
     type: "website",
+    images: [
+      {
+        url: "/logo/sig.png",
+        width: 1200,
+        height: 630,
+        alt: "RavenDOS — Intelligence, Architected.",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "RavenDOS — Intelligence, Architected.",
     description:
       "A product-driven technology studio in Hyderabad building intelligent platforms.",
+    images: ["/logo/sig.png"],
   },
 };
 

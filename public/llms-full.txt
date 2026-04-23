@@ -1,10 +1,10 @@
 # RavenDOS — Intelligence, Architected.
 
-> RavenDOS is a product-driven technology studio headquartered in Hyderabad, Telangana, India. We design, build, and ship intelligent platforms — end to end. Our team specializes in AI/ML development, DevOps infrastructure, mobile and web application development, website design, and network security.
+> RavenDOS is a product-driven technology studio headquartered in Hyderabad, Telangana, India. We design, build, and ship intelligent platforms — end to end. Our team specializes in AI/ML development, full stack software, DevOps, DevSecOps, mobile and web application development, website design, and cybersecurity.
 
 ## Company Overview
 
-RavenDOS Business Ventures LLP builds technology that matters. We are not an outsourcing shop — we are a product-driven studio that designs, develops, and launches our own intelligent platforms, and applies the same engineering excellence to client projects. Based in Hyderabad, we serve businesses across Telangana and India.
+RavenDOS Business Ventures LLP builds technology that matters. We are not an outsourcing shop — we are a product-driven studio that designs, develops, and launches our own intelligent platforms, and applies the same engineering excellence to client projects. Based in Hyderabad, we serve businesses across Telangana, India, and globally.
 
 ## Services
 
@@ -13,6 +13,8 @@ We design, train, and deploy intelligent systems that solve real business proble
 - Custom ML model development and training
 - Natural Language Processing (NLP) solutions
 - Computer Vision and image recognition systems
+- Generative AI and Large Language Model (LLM) integration
+- AI chatbot and conversational AI development
 - Predictive analytics and recommendation engines
 - MLOps pipelines and model monitoring
 - AI-powered automation and workflow optimization
@@ -21,20 +23,51 @@ Our AI expertise is proven through products like IntiGrade, an AI-powered exam e
 
 Learn more: https://ravendos.com/services/ai-ml
 
+### Full Stack Development
+We build complete software products from database to deployment. Our full stack development services include:
+- Custom SaaS platform development
+- MVP development and rapid prototyping
+- MERN / MEAN stack web applications
+- Enterprise software solutions
+- Backend API and microservices architecture
+- Database design, optimization, and migration
+- Third-party API integration and automation
+- Legacy system modernization and re-architecture
+
+We deliver end-to-end product development with a single team — no handoffs, no gaps. Ideal for startups building MVPs and enterprises modernizing legacy systems.
+
+Learn more: https://ravendos.com/services/full-stack-development
+
 ### DevOps & Cloud Infrastructure
 We architect resilient cloud infrastructure and streamlined CI/CD pipelines. Our DevOps services include:
 - CI/CD pipeline design and implementation
 - Cloud architecture on AWS, Azure, and GCP
 - Kubernetes and container orchestration
+- Docker containerization services
 - Infrastructure as Code (Terraform, Pulumi)
+- GitHub Actions, Jenkins, and GitLab CI/CD automation
 - Monitoring, logging, and observability (Grafana, Prometheus)
-- Cost optimization and cloud migration
+- Cloud migration, cost optimization, and managed DevOps
 
 Learn more: https://ravendos.com/services/devops
+
+### DevSecOps
+We embed security into every stage of your development pipeline. Our DevSecOps services include:
+- Shift-left security integration in CI/CD pipelines
+- SAST and DAST tool integration (SonarQube, OWASP ZAP, Snyk)
+- Container and Kubernetes security hardening
+- Infrastructure as Code security scanning
+- Compliance automation (SOC 2, ISO 27001, PCI-DSS)
+- Security-focused code review and developer training
+
+DevSecOps ensures your software is secure by design — not patched after the fact. Our unique position at the intersection of DevOps and cybersecurity means we practice both.
+
+Learn more: https://ravendos.com/services/devsecops
 
 ### App Development
 We build performant, scalable applications from concept to launch. Our app development services include:
 - Cross-platform mobile apps (React Native, Flutter)
+- Progressive Web Apps (PWA) and responsive web apps
 - Web applications (Next.js, React, Node.js)
 - Backend API development and microservices
 - Real-time features and WebSocket integrations
@@ -51,6 +84,7 @@ We craft high-performance websites that balance stunning design with technical e
 - E-commerce website development
 - Landing page design and conversion optimization
 - Website redesign and modernization
+- Next.js, React, and Tailwind CSS development
 
 Tech stack: Next.js, React, Tailwind CSS, TypeScript, GSAP.
 
@@ -62,8 +96,10 @@ We design secure network architectures and implement comprehensive cybersecurity
 - Vulnerability assessment and penetration testing
 - Firewall, IDS/IPS configuration and management
 - Zero-trust architecture implementation
-- Compliance consulting (ISO 27001, SOC 2)
-- Security monitoring and incident response
+- SIEM deployment and Security Operations Center (SOC) setup
+- Identity and Access Management (IAM) implementation
+- Compliance consulting (ISO 27001, SOC 2, PCI-DSS)
+- Managed security monitoring and incident response
 
 Learn more: https://ravendos.com/services/network-security
 
@@ -88,9 +124,10 @@ We design systems that think. We architect platforms that scale. We build what w
 - Frontend: Next.js, React, TypeScript, Tailwind CSS
 - Mobile: React Native, Flutter
 - Backend: Node.js, Python
-- AI/ML: TensorFlow, PyTorch, Hugging Face
+- AI/ML: TensorFlow, PyTorch, Hugging Face, OpenAI API, LangChain
 - Cloud: AWS, Azure, GCP
-- DevOps: Docker, Kubernetes, Terraform, GitHub Actions
+- DevOps: Docker, Kubernetes, Terraform, GitHub Actions, Jenkins
+- DevSecOps: SonarQube, OWASP ZAP, Snyk, Trivy
 - Databases: PostgreSQL, MongoDB, Redis
 - Animations: GSAP, WebGL (OGL)
 
@@ -121,7 +158,9 @@ Remote: Worldwide
 - Homepage: https://ravendos.com
 - Services Overview: https://ravendos.com/services
 - AI/ML Development: https://ravendos.com/services/ai-ml
+- Full Stack Development: https://ravendos.com/services/full-stack-development
 - DevOps & Cloud Infrastructure: https://ravendos.com/services/devops
+- DevSecOps: https://ravendos.com/services/devsecops
 - App Development: https://ravendos.com/services/app-development
 - Website Design & Development: https://ravendos.com/services/web-design
 - Network & Cyber Security: https://ravendos.com/services/network-security

@@ -3,14 +3,21 @@ import { buildPageMetadata } from "@/lib/seo";
 import { ContactPageContent } from "./contact-content";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Contact RavenDOS — Software Development Studio in Hyderabad",
+  title: "Contact RavenDOS — Free Consultation | Hyderabad",
   description:
-    "Get in touch with RavenDOS in Hyderabad, Telangana. Let\u2019s discuss your AI, DevOps, app development, or web design project. We respond within 24 hours.",
+    "Get in touch with RavenDOS. Free consultation for AI, DevOps, full stack development, web design & cybersecurity projects. Response within 24 hours.",
   path: "/contact",
   keywords: [
     "contact RavenDOS",
     "software company Hyderabad contact",
-    "technology studio Telangana",
+    "free technology consultation India",
+    "hire developers Hyderabad",
+    "get quote software development",
+    "IT consulting Hyderabad",
+    "project inquiry software company",
+    "technology studio contact Telangana",
+    "AI consulting free quote",
+    "DevOps consulting India contact",
   ],
 });
 

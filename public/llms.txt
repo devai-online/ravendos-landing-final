@@ -1,14 +1,16 @@
 # RavenDOS — Intelligence, Architected.
 
-> RavenDOS is a product-driven technology studio based in Hyderabad, Telangana, India. We design, develop, and launch intelligent platforms across AI/ML, DevOps, app development, website design, and network security.
+> RavenDOS is a product-driven technology studio based in Hyderabad, Telangana, India. We design, develop, and launch intelligent platforms across AI/ML, full stack development, DevOps, DevSecOps, app development, website design, and cybersecurity.
 
 ## Services
 
-- AI & Machine Learning Development: Custom ML models, NLP, computer vision, predictive analytics, MLOps pipelines
-- DevOps & Cloud Infrastructure: CI/CD pipelines, AWS/Azure/GCP, Kubernetes, Infrastructure as Code, monitoring
-- App Development: Cross-platform mobile apps (React Native, Flutter), web apps (Next.js, React, Node.js), backend APIs
-- Website Design & Development: Custom websites, responsive design, SEO optimization, e-commerce, landing pages
-- Network & Cyber Security: Secure architecture, penetration testing, firewall management, zero-trust, compliance (ISO 27001, SOC 2)
+- AI & Machine Learning Development: Custom ML models, NLP, computer vision, generative AI, LLM integration, AI chatbots, predictive analytics, MLOps pipelines, AI automation
+- Full Stack Development: Custom software, SaaS platforms, MVPs, MERN stack, React/Node.js, enterprise software, backend APIs, microservices, legacy modernization
+- DevOps & Cloud Infrastructure: CI/CD pipelines, AWS/Azure/GCP, Kubernetes, Docker, Terraform, Infrastructure as Code, monitoring, cloud migration
+- DevSecOps: Secure CI/CD pipelines, shift-left security, SAST/DAST integration, container security, compliance automation (SOC 2, ISO 27001, PCI-DSS)
+- App Development: Cross-platform mobile apps (React Native, Flutter), progressive web apps, web apps (Next.js, React, Node.js), backend APIs
+- Website Design & Development: Custom websites, Next.js, responsive design, SEO optimization, e-commerce, landing pages
+- Network & Cyber Security: Cybersecurity services, penetration testing, vulnerability assessment, firewall management, zero-trust, SIEM/SOC, IAM, compliance (ISO 27001, SOC 2)
 
 ## Products
 
@@ -31,7 +33,9 @@ Hyderabad, Telangana 500059, India
 - Homepage: https://ravendos.com
 - Services: https://ravendos.com/services
 - AI/ML Development: https://ravendos.com/services/ai-ml
+- Full Stack Development: https://ravendos.com/services/full-stack-development
 - DevOps & Cloud: https://ravendos.com/services/devops
+- DevSecOps: https://ravendos.com/services/devsecops
 - App Development: https://ravendos.com/services/app-development
 - Website Design: https://ravendos.com/services/web-design
 - Network Security: https://ravendos.com/services/network-security
