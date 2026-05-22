@@ -15,6 +15,11 @@ const LOGOS = [
   { src: "/images/clients/diagnosticwale-logo.png", alt: "DiagnosticWale", width: 100, height: 48 },
 ];
 
+const BACKED_BY = [
+  { src: "/images/backed-by/aws-activate.png", alt: "AWS Activate", width: 260, height: 50, heightClass: "h-12 md:h-14" },
+  { src: "/images/backed-by/nvidia.png", alt: "NVIDIA Inception", width: 230, height: 100, heightClass: "h-20 md:h-24" },
+];
+
 /* ── 4-column approach values (Tiwis Posture pattern) ── */
 const APPROACH_VALUES = [
   {
@@ -390,7 +395,7 @@ export function Testimonials() {
       {/* ═══════════════════════════════════════════
           CLIENT LOGOS
           ═══════════════════════════════════════════ */}
-      <div className="px-6 md:px-12 lg:px-[10vw] pb-16 md:pb-24 lg:pb-28">
+      <div className="px-6 md:px-12 lg:px-[10vw] pt-0">
         <div className="mx-auto max-w-7xl relative">
           {/* Animated structural line — top */}
           <div className="posture-line h-px bg-black/20 origin-left mb-12" />
@@ -415,6 +420,42 @@ export function Testimonials() {
                     height={logo.height}
                     className="h-10 md:h-12 w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
                     sizes="(max-width: 640px) 80px, 120px"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ═══════════════════════════════════════════
+          BACKED BY
+          ═══════════════════════════════════════════ */}
+      <div className="px-6 md:px-12 lg:px-[10vw] pt-12 md:pt-16 pb-16 md:pb-24 lg:pb-28">
+        <div className="mx-auto max-w-7xl relative">
+          {/* Animated structural line — top */}
+          <div className="posture-line h-px bg-black/20 origin-left mb-12" />
+
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10">
+            <div className="posture-reveal flex items-center gap-6">
+              <span className="font-[family-name:var(--font-heading)] text-xs tracking-[0.25em] text-black/50 uppercase">
+                Backed By
+              </span>
+              {/* Decorative icon inline with label */}
+              <div className="posture-icon w-10 h-10 text-[#FF7C48]/50 hidden md:block">
+                <IconFlower />
+              </div>
+            </div>
+            <div className="posture-reveal flex flex-wrap items-center gap-12 md:gap-16 lg:gap-20">
+              {BACKED_BY.map((logo, i) => (
+                <div key={i} className="shrink-0">
+                  <Image
+                    src={logo.src}
+                    alt={logo.alt}
+                    width={logo.width}
+                    height={logo.height}
+                    className={`${logo.heightClass} w-auto object-contain`}
+                    sizes="(max-width: 640px) 160px, 240px"
                   />
                 </div>
               ))}
