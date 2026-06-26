@@ -18,6 +18,7 @@ const LOGOS = [
 const BACKED_BY = [
   { src: "/images/backed-by/aws-activate.png", alt: "AWS Activate", width: 260, height: 50, heightClass: "h-12 md:h-14" },
   { src: "/images/backed-by/nvidia.png", alt: "NVIDIA Inception", width: 230, height: 100, heightClass: "h-20 md:h-24" },
+  { src: "/images/backed-by/claude.png", alt: "Claude", width: 230, height: 60, heightClass: "h-12 md:h-14" },
 ];
 
 /* ── 4-column approach values (Tiwis Posture pattern) ── */
