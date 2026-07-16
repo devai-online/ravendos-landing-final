@@ -114,17 +114,17 @@ export function Hero() {
         ref={taglineRef}
         className="absolute right-[5vw] top-[32%] z-10 hidden text-right lg:block overflow-hidden"
       >
-        <p className="tagline-line font-[family-name:var(--font-heading)] text-[clamp(1.2rem,2.4vw,2.4rem)] font-bold uppercase leading-tight text-text/70">
+        <p className="tagline-line font-[family-name:var(--font-hero)] text-[clamp(1.1rem,2.1vw,2.1rem)] font-normal leading-tight text-text/70">
           Intelligence,
         </p>
-        <p className="tagline-line font-[family-name:var(--font-heading)] text-[clamp(1.2rem,2.4vw,2.4rem)] font-bold uppercase leading-tight text-text/70">
+        <p className="tagline-line font-[family-name:var(--font-hero)] text-[clamp(1.1rem,2.1vw,2.1rem)] font-normal leading-tight text-text/70">
           Architected.
         </p>
       </div>
 
       {/* Mobile tagline — above the name */}
       <div className="relative z-10 mb-6 px-6 lg:hidden">
-        <p className="font-[family-name:var(--font-heading)] text-[clamp(1.1rem,5vw,1.8rem)] font-bold uppercase leading-tight text-text/60">
+        <p className="font-[family-name:var(--font-hero)] text-[clamp(0.95rem,4.2vw,1.5rem)] font-normal leading-tight text-text/60">
           Intelligence, Architected.
         </p>
       </div>

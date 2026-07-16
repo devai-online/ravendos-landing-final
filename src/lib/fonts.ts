@@ -1,7 +1,7 @@
 import { Syncopate, Syne, Outfit, Space_Grotesk } from "next/font/google";
 
 export const syncopate = Syncopate({
-  weight: ["700"],
+  weight: ["400", "700"],
   subsets: ["latin"],
   variable: "--font-syncopate",
   display: "swap",
