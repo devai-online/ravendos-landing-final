@@ -1,6 +1,7 @@
 import Script from "next/script";
 
 const GA_MEASUREMENT_ID = "G-DY1KD00RXD";
+const GOOGLE_ADS_ID = "AW-18306012046";
 
 export function GoogleAnalytics() {
   if (!GA_MEASUREMENT_ID) return null;
@@ -17,6 +18,7 @@ export function GoogleAnalytics() {
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
           gtag('config', '${GA_MEASUREMENT_ID}');
+          gtag('config', '${GOOGLE_ADS_ID}');
         `}
       </Script>
     </>
