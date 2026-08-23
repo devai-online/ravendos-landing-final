@@ -17,4 +17,6 @@ interface Turnstile {
 
 interface Window {
   turnstile?: Turnstile;
+  gtag?: (...args: unknown[]) => void;
+  dataLayer?: unknown[];
 }

@@ -75,11 +75,27 @@ function UnderlineTextarea({
 
 const TURNSTILE_SITE_KEY = "0x4AAAAAACrk6R3ranAd6Qzd";
 
+// Google Ads conversion action (contact form submit)
+const ADS_CONVERSION_SEND_TO = "AW-18306012046/P_eACNfYvcwcEI6n_phE";
+
 export function ContactForm() {
   const [state, handleSubmit] = useForm("xwvrnzry");
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const [turnstileError, setTurnstileError] = useState(false);
   const turnstileRef = useRef<HTMLDivElement>(null);
+
+  // Fire Google Ads conversion once, when the form is successfully submitted
+  useEffect(() => {
+    if (!state.succeeded) return;
+    if (typeof window === "undefined" || typeof window.gtag !== "function") {
+      return;
+    }
+    window.gtag("event", "conversion", {
+      send_to: ADS_CONVERSION_SEND_TO,
+      value: 1.0,
+      currency: "INR",
+    });
+  }, [state.succeeded]);
 
   // Render Turnstile widget once script is loaded
   useEffect(() => {
