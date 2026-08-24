@@ -29,5 +29,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.7,
     },
+    {
+      url: "https://ravendos.com/privacy",
+      lastModified: new Date("2026-08-24"),
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
   ];
 }

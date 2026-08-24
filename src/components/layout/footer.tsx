@@ -184,6 +184,13 @@ export function Footer({ showCta = true }: FooterProps) {
           <p className="font-[family-name:var(--font-body)] text-xs text-text/60">
             &copy; {new Date().getFullYear()} RavenDOS Business Ventures LLP.
             All rights reserved.
+            <span className="mx-2 text-text/30">·</span>
+            <Link
+              href="/privacy"
+              className="transition-colors duration-300 hover:text-text"
+            >
+              Privacy Policy
+            </Link>
           </p>
           <p className="font-[family-name:var(--font-body)] text-xs text-text/50">
             E/38, G2, 17-1-380, Santosh Nagar Main Road, Central Excise Colony, Saidabad, Hyderabad, Telangana 500059, India
