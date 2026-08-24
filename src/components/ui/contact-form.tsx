@@ -83,6 +83,7 @@ export function ContactForm() {
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const [turnstileError, setTurnstileError] = useState(false);
   const turnstileRef = useRef<HTMLDivElement>(null);
+  const widgetIdRef = useRef<string | null>(null);
 
   // Fire Google Ads conversion once, when the form is successfully submitted
   useEffect(() => {
@@ -97,45 +98,58 @@ export function ContactForm() {
     });
   }, [state.succeeded]);
 
-  // Render Turnstile widget once script is loaded
+  // Render Turnstile widget exactly once, with proper lifecycle cleanup.
+  // Turnstile injects its own hidden `cf-turnstile-response` input into the
+  // container, which is what Formspree reads — we do NOT render a duplicate.
   useEffect(() => {
-    if (!turnstileRef.current) return;
+    let cancelled = false;
+    let interval: ReturnType<typeof setInterval> | undefined;
 
     const renderWidget = () => {
-      if (
-        typeof window !== "undefined" &&
-        window.turnstile &&
-        turnstileRef.current
-      ) {
-        // Clear any previous widget
-        turnstileRef.current.innerHTML = "";
-        window.turnstile.render(turnstileRef.current, {
-          sitekey: TURNSTILE_SITE_KEY,
-          theme: "dark",
-          callback: (token: string) => {
-            setTurnstileToken(token);
-            setTurnstileError(false);
-          },
-          "expired-callback": () => setTurnstileToken(null),
-          "error-callback": () => setTurnstileToken(null),
-        });
-      }
+      if (cancelled || !window.turnstile || !turnstileRef.current) return;
+      if (widgetIdRef.current) return; // guard against double-render
+      widgetIdRef.current = window.turnstile.render(turnstileRef.current, {
+        sitekey: TURNSTILE_SITE_KEY,
+        theme: "dark",
+        callback: (token: string) => {
+          setTurnstileToken(token);
+          setTurnstileError(false);
+        },
+        "expired-callback": () => setTurnstileToken(null),
+        "error-callback": () => setTurnstileToken(null),
+      });
     };
 
-    // If script already loaded, render immediately
     if (window.turnstile) {
       renderWidget();
     } else {
-      // Wait for script to load
-      const interval = setInterval(() => {
+      interval = setInterval(() => {
         if (window.turnstile) {
-          clearInterval(interval);
+          if (interval) clearInterval(interval);
           renderWidget();
         }
       }, 200);
-      return () => clearInterval(interval);
     }
+
+    return () => {
+      cancelled = true;
+      if (interval) clearInterval(interval);
+      if (widgetIdRef.current && window.turnstile) {
+        window.turnstile.remove(widgetIdRef.current);
+        widgetIdRef.current = null;
+      }
+    };
   }, []);
+
+  // If Formspree rejects the submission, the Turnstile token has been spent
+  // (single-use). Reset the widget so a retry gets a fresh, valid token.
+  useEffect(() => {
+    if (!state.errors) return;
+    if (widgetIdRef.current && window.turnstile) {
+      window.turnstile.reset(widgetIdRef.current);
+      setTurnstileToken(null);
+    }
+  }, [state.errors]);
 
   const onSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
@@ -219,16 +233,9 @@ export function ContactForm() {
         </div>
       </div>
 
-      {/* Turnstile widget + hidden token field */}
+      {/* Turnstile widget — injects its own cf-turnstile-response input */}
       <div className="mt-8">
         <div ref={turnstileRef} />
-        {turnstileToken && (
-          <input
-            type="hidden"
-            name="cf-turnstile-response"
-            value={turnstileToken}
-          />
-        )}
         {turnstileError && (
           <p className="mt-2 font-[family-name:var(--font-body)] text-xs text-accent">
             Please verify you are human.
