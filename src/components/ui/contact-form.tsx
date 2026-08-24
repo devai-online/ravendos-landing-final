@@ -195,6 +195,15 @@ export function ContactForm() {
               className="mt-1 block font-[family-name:var(--font-body)] text-xs text-accent"
             />
           </div>
+          <div>
+            <UnderlineInput label="Phone" type="tel" name="phone" required />
+            <ValidationError
+              field="phone"
+              prefix="Phone"
+              errors={state.errors}
+              className="mt-1 block font-[family-name:var(--font-body)] text-xs text-accent"
+            />
+          </div>
           <UnderlineInput label="Company / Organization" name="company" />
         </div>
 
