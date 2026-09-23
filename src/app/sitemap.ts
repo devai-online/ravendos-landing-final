@@ -35,5 +35,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "yearly",
       priority: 0.3,
     },
+    {
+      url: "https://ravendos.com/terms",
+      lastModified: new Date("2026-08-24"),
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
   ];
 }
